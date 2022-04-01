@@ -1,0 +1,68 @@
+:root {
+    --border-radius: 6px;
+}
+
+.backgroundImage {
+    position: fixed;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+}
+
+.level {
+    background-color: rgba(255, 255, 255, .4) !important;
+    padding-top: .3%;
+    padding-bottom: .3%;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+.image {
+    border-radius: var(--border-radius);
+}
+
+.title {
+    font-size: 1.9rem !important;
+    color: black !important;
+}
+
+.subtitle {
+    font-size: 1.1rem !important;
+    color: black !important;
+}
+
+.block {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%
+}
+
+.hero {
+    background-color: rgba(0, 81, 255, 0.3) !important;
+}
+
+.box,
+.input {
+    background-color: rgba(255, 255, 255, .4) !important;
+    color: black !important;
+}
+
+.input::placeholder {
+    color: black !important;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input[type=number] {
+    -moz-appearance: textfield;
+}
+
+li {
+    list-style-type: '✅';
+    padding-inline-start: 1ch;
+}
