@@ -51,7 +51,7 @@ def dashboard_delete_entry(id: int):
     else:
         db.session.delete(entry)
         db.session.commit()
-        return redirect("/dashboard?message=Delete%20Successfull&type=success")
+        return redirect("/dashboard?message=Delete%20Successfull")
 
 @app.route('/registered')
 def registered():

@@ -39,33 +39,31 @@
                 </div>
                 <div class="column"></div>
                 <div class="column">
-                    <form class="box">
-                        <form method="POST">
-                            <center>
-                                <div class="title" style="color: rgb(0, 81, 255) !important;">Book a Session</div>
-                            </center>
-                            <div class="field">
-                                <label class="label">Name</label>
-                                <div class="control">
-                                    <input class="input" type="text" required>
-                                </div>
+                    <form class="box" method="POST" action="#">
+                        <center>
+                            <div class="title" style="color: rgb(0, 81, 255) !important;">Book a Session</div>
+                        </center>
+                        <div class="field">
+                            <label class="label">Name</label>
+                            <div class="control">
+                                <input class="input" type="text" name="name" required>
                             </div>
-                            <div class="field">
-                                <label class="label">Email</label>
-                                <div class="control">
-                                    <input class="input" type="email" required>
-                                </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input class="input" type="email" name="email" required>
                             </div>
-                            <div class="field">
-                                <label class="label">Whatsapp Number</label>
-                                <div class="control">
-                                    <input class="input" type="number" required>
-                                </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Whatsapp Number</label>
+                            <div class="control">
+                                <input class="input" type="number" name="phone" min="0" required>
                             </div>
-                            <center>
-                                <button class="button is-link">Book Now</button>
-                            </center>
-                        </form>
+                        </div>
+                        <center>
+                            <button class="button is-link" type="submit">Book Now</button>
+                        </center>
                     </form>
                 </div>
             </div>

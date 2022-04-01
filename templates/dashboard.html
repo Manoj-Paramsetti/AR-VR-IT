@@ -14,6 +14,7 @@
     <br/>
     <br/>
     <p class="text-lg font-bold">Registered Students Details</p>
+    <p class="text-lg font-bold" style="color: red;" id="message"></p>
     <br/>
 
     <table class="table-auto border-collapse border border-slate-400">
@@ -41,5 +42,13 @@
         </tbody>
     </table>
 </body>
+
+<script>
+    var url = new URL(window.location.href);
+    var message = url.searchParams.get("message");
+    if (message != null) {
+        document.getElementById("message").innerText = message;
+    }
+</script>
 
 </html>
