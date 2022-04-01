@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Dashboard</title>
+</head>
+<body class="px-6">
+        <img src="https://sathyabama.cognibot.in/pluginfile.php/1/theme_klass/logo/1636949046/logo.svg" style="filter: invert(100%)" width="300px" />
+        <br/>
+        <br/>
+        <p class="text-lg font-bold">Registered Students Details</p>
+        <br/>
+
+        <table class="table-auto border-collapse border border-slate-400">
+            <thead>
+                <tr>
+                <th class="border border-slate-300 px-2 py-1">ID</th>
+                <th class="border border-slate-300 px-2 py-1">Name</th>
+                <th class="border border-slate-300 px-2 py-1">Email</th>
+                <th class="border border-slate-300 px-2 py-1">Phone Number</th>
+                <th class="border border-slate-300 px-2 py-1">Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in datas %}
+                    <tr>
+                        <td class="border border-slate-300 px-2 py-1">{{ data.id }}
+                        <td class="border border-slate-300 px-2 py-1">{{ data.name }}
+                        <td class="border border-slate-300 px-2 py-1">{{ data.email }}
+                        <td class="border border-slate-300 px-2 py-1">{{ data.phone }}
+                            <td class="border border-slate-300 px-2 py-1">{{ (data.date).strftime("%d-%m-%Y %H:%M:%S") }}
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+</body>
+</html>
