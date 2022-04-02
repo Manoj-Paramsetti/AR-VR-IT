@@ -1,0 +1,10 @@
+Login <br><br>
+
+<form method="POST">
+    Username: <input type="text" name="username">
+    <br> Password: <input type="password" name="passwd">
+    <br>
+    <button type="submit">Submit</button> {% if error!=None %}
+    <div style="color: red;">{{error}}</div>
+    {% endif %}
+</form>

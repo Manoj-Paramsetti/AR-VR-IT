@@ -1,0 +1,11 @@
+Create new user <br><br>
+
+<form method="POST">
+    Username: <input type="text" name="username">
+    <br> Password: <input type="password" name="passwd">
+    <br> Confirm Password: <input type="password" name="confirmpasswd">
+    <br>
+    <button type="submit">Submit</button> {% if message!=None %}
+    <div style="color: red;">{{message}}</div>
+    {% endif %}
+</form>
