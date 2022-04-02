@@ -7,90 +7,75 @@
     <title>AR/VR</title>
     <link rel="stylesheet" href="/static/styles/main.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <img src="/static/images/bg.jpg" class="backgroundImage">
-    <nav class="flex flex-row justify-center space-x-[200px]">
-        <div class="">
-            <img src="/static/images/sistLogo.png" width="175">
+    <nav class="flex flex-row justify-center space-x-[30px] sm:space-x-[150px] md:space-x-[250px] lg:space-x-[350px] xl:space-x-[450px]">
+        <div class="my-auto">
+            <img src="/static/images/sistLogo.png" width="175px">
         </div>
-        <div class="level-item has-text-centered"></div>
-        <div class="level-item has-text-centered">
-            <img src="/static/images/scopik.png" width="115">
+        <div class=""></div>
+        <div class="my-auto">
+            <img src="/static/images/scopik.png" width="115px">
         </div>
     </nav>
-    <div class="block">
-        <div class="flex flex-col-reverse level md:flex-row">
-            <div class="container" style="width: 320px;">
-                <h1 class="title" style="width: 320px;">Certification Programme in AR/VR</h1>
-                <h2 class="subtitle" style="width: 320px;">Offered by Sathyabama Institute of Science Technology (School of computing, Department of IT) in Technical Collaboration with Scopik EduTech Pvt. Ltd</h2>
+    <div class="flex mx-auto my-10 flex-col-reverse lg:mx-auto sm:max-w-[1200px] lg:flex-row px-5">
+        <div class="container my-[20px] lg:my-auto lg:mx-0 mx-auto">
+            <h1 class="text-3xl max-w-[350px] mx-auto lg:mx-0 font-bold" >Certification Programme in AR/VR</h1>
+            <h2 class="text-slate-700 mt-3 mx-auto lg:mx-0 max-w-[350px]">Offered by Sathyabama Institute of Science Technology (School of computing, Department of IT) in Technical Collaboration with Scopik EduTech Pvt. Ltd</h2>
+        </div>
+        <img class="rounded-md mx-auto" src="/static/images/img1.jpg" alt="Virtual Reality NextGen Lab" class="" width="500px"></img>
+    </div>
+    <div class="bg-gray-500 py-3">
+        <div class="flex mx-auto my-10 flex-col lg:mx-auto sm:max-w-[1400px] lg:flex-row px-5">
+            <div class="container mx-auto">
+                    <iframe class="my-3 aspect-video mx-auto lg:mx-0 w-[280px] sm:w-[460px] md:w-[660px] lg:w-[660px]" src="https://www.youtube.com/embed/mt81V-sS_So" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <img class="rounded-md" src="/static/images/img1.jpg" alt="Virtual Reality NextGen Lab" width="400px"></img>
+            <form class="md:w-[420px] my-3 max-w-[320px] mx-auto lg:mx-0 px-5 bg-white rounded-lg drop-shadow-2xl" method="POST" action="#">
+                <p class="text-2xl mt-4 text-blue-500 font-bold text-center">Book a Session</p>
+                <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
+                    Name
+                </label>
+                <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block rounded-sm focus:ring-1" type="text" name="name" required>
+                <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
+                    Email
+                </label>
+                <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block w-lg rounded-sm focus:ring-1" type="email" name="email" required>
+                <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
+                    Whatsapp Number
+                </label>
+                <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block w-lg rounded-sm focus:ring-1" type="number" name="phone" min="6000000000" required>
+                <button class="my-5 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded px-5 py-1 text-lg font-bold text-white" type="submit">
+                    Book Now
+                </button>
+            </form>
         </div>
     </div>
-    <section class="hero is-small">
-        <div class="block">
-            <div class="columns is-mobile is-centered is-vcentered">
-                <div class="column">
-                    <img src="/static/images/sistLogo.png" alt="Virtual Reality NextGen Lab">
+    <div class="container mx-auto">
+        <div class="flex my-10 flex-col-reverse sm:max-w-[1500px] lg:flex-row px-5">
+                <div class="lg:container my-auto mx-auto lg:mx-0">
+                    <p class="text-2xl text-center lg:text-left md:text-3xl mt-4 mb-5" style="font-family: 'Poppins', sans-serif; font-weight: 700;">Key Points</p>
+                    <div>
+                        <ul>
+                            <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Six month program</li>
+                            <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Blended Learning</li>
+                            <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Learn from industry experts</li>
+                            <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Project based learnign</li>
+                            <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Key tools & technologies</li>
+                        </ul>
+                    </p>
+                    </div>
                 </div>
-                <div class="column"></div>
-                <div class="column">
-                    <form class="box" method="POST" action="#">
-                        <center>
-                            <div class="title text-red-500">Book a Session</div>
-                        </center>
-                        <div class="field">
-                            <label class="label">Name</label>
-                            <div class="control">
-                                <input class="input" type="text" name="name" required>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control">
-                                <input class="input" type="email" name="email" required>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Whatsapp Number</label>
-                            <div class="control">
-                                <input class="input" type="number" name="phone" min="0" required>
-                            </div>
-                        </div>
-                        <center>
-                            <button class="button is-link" type="submit">Book Now</button>
-                        </center>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="block">
-        <div class="columns is-mobile is-centered is-vcentered">
-            <div class="column">
-                <h1 class="title">Key Points</h1>
-                <h2 style="margin-left: 2% !important; color: black !important; font-size: 1.3rem;">
-                    <ul>
-                        <li>Six month program</li>
-                        <li>Blended Learning</li>
-                        <li>Learn from industry experts</li>
-                        <li>Project based learnign</li>
-                        <li>Key tools & technologies</li>
-                    </ul>
-                </h2>
-            </div>
-            <div class="column">
-                <img src="/static/images/img2.jpg" width="500px" class="image" alt="Virtual Reality NextGen Lab">
-            </div>
+                    <img src="/static/images/img2.jpg" width="500px" class="mx-auto lg:mx-0 rounded" alt="Virtual Reality NextGen Lab">
         </div>
     </div>
-    <div class="block">
-        <center>
-            <div class="title">Course Overview</div>
-        </center>
-    </div>
+    <br>
+    <br>
+    <p class="text-2xl md:text-3xl mt-4 mb-5 text-center" style="font-family: 'Poppins', sans-serif; font-weight: 600;">Course Overview</p>
     <br>
 </body>
 

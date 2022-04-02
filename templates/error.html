@@ -10,11 +10,19 @@
 </head>
 
 <body>
-    <div class="flex justify-center my-10">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Cross_red_circle.svg/1024px-Cross_red_circle.svg.png" alt="checkmark" width="200px">
+    <img src="/static/images/img1.jpg" height="100vh" width="100%" 
+        style="position: fixed;
+        z-index: -1;
+        opacity: 0.20;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;" alt="image1">
+    <div class="flex justify-center my-10 mt-36 align-middle">
+        <img src="/static/images/cross.png" alt="checkmark" width="200px">
     </div>
     <div class="flex justify-center my-10">
-        <p class="font-bold text-red-500 text-4xl">{{message}}</p>
+        <p class="font-bold text-red-500 text-2xl">{{message}}</p>
     </div>
 </body>
 

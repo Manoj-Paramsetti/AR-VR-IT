@@ -7,25 +7,9 @@
     z-index: -1;
     height: 100%;
     width: 100%;
-    opacity: 0.25;
+    opacity: 0.50;
 }
 
-.title {
-    font-size: 1.9rem !important;
-    color: black !important;
-}
-
-.subtitle {
-    font-size: 1.1rem !important;
-    color: black !important;
-}
-
-
-.hero {
-    background-color: #475879 !important;
-}
-
-.box,
 .input {
     background-color: rgba(255, 255, 255, .4) !important;
     color: black !important;
