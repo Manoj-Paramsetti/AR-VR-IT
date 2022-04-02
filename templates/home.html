@@ -14,7 +14,7 @@
 
 <body>
     <img src="/static/images/bg.jpg" class="backgroundImage">
-    <nav class="flex flex-row justify-center space-x-[30px] sm:space-x-[150px] md:space-x-[250px] lg:space-x-[350px] xl:space-x-[450px]">
+    <nav class="flex flex-row justify-center space-x-[30px] sm:space-x-[150px] md:space-x-[250px] lg:space-x-[350px] xl:space-x-[450px] glassbg">
         <div class="my-auto">
             <img src="/static/images/sistLogo.png" width="175px">
         </div>
@@ -25,17 +25,18 @@
     </nav>
     <div class="flex mx-auto my-10 flex-col-reverse lg:mx-auto sm:max-w-[1200px] lg:flex-row px-5">
         <div class="container my-[20px] lg:my-auto lg:mx-0 mx-auto">
-            <h1 class="text-3xl max-w-[350px] mx-auto lg:mx-0 font-bold" >Certification Programme in AR/VR</h1>
+            <h1 class="text-3xl max-w-[350px] mx-auto lg:mx-0 font-bold">Certification Programme in AR/VR</h1>
             <h2 class="text-slate-700 mt-3 mx-auto lg:mx-0 max-w-[350px]">Offered by Sathyabama Institute of Science Technology (School of computing, Department of IT) in Technical Collaboration with Scopik EduTech Pvt. Ltd</h2>
         </div>
         <img class="rounded-md mx-auto" src="/static/images/img1.jpg" alt="Virtual Reality NextGen Lab" class="" width="500px"></img>
     </div>
-    <div class="bg-gray-500 py-3">
+    <div class="bg-500 py-3 glassbg">
         <div class="flex mx-auto my-10 flex-col lg:mx-auto sm:max-w-[1400px] lg:flex-row px-5">
             <div class="container mx-auto">
-                    <iframe class="my-3 aspect-video mx-auto lg:mx-0 w-[280px] sm:w-[460px] md:w-[660px] lg:w-[660px]" src="https://www.youtube.com/embed/mt81V-sS_So" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe class="my-3 aspect-video mx-auto lg:mx-0 w-[280px] sm:w-[460px] md:w-[660px] lg:w-[660px] rounded-md" src="https://www.youtube.com/embed/mt81V-sS_So" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </div>
-            <form class="md:w-[420px] my-3 max-w-[320px] mx-auto lg:mx-0 px-5 bg-white rounded-lg drop-shadow-2xl" method="POST" action="#">
+            <form class="md:w-[420px] my-3 max-w-[320px] mx-auto lg:mx-0 px-5 bg-white rounded-lg drop-shadow-2xl glassbg" method="POST" action="#">
                 <p class="text-2xl mt-4 text-blue-500 font-bold text-center">Book a Session</p>
                 <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                     Name
@@ -49,7 +50,7 @@
                     Whatsapp Number
                 </label>
                 <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block w-lg rounded-sm focus:ring-1" type="number" name="phone" min="6000000000" required>
-                <button class="my-5 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded px-5 py-1 text-lg font-bold text-white" type="submit">
+                <button class="my-6 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded px-24 py-1 text-lg font-bold text-white" type="submit">
                     Book Now
                 </button>
             </form>
@@ -57,20 +58,20 @@
     </div>
     <div class="container mx-auto">
         <div class="flex my-10 flex-col-reverse sm:max-w-[1500px] lg:flex-row px-5">
-                <div class="lg:container my-auto mx-auto lg:mx-0">
-                    <p class="text-2xl text-center lg:text-left md:text-3xl mt-4 mb-5" style="font-family: 'Poppins', sans-serif; font-weight: 700;">Key Points</p>
-                    <div>
-                        <ul>
-                            <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Six month program</li>
-                            <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Blended Learning</li>
-                            <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Learn from industry experts</li>
-                            <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Project based learnign</li>
-                            <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Key tools & technologies</li>
-                        </ul>
+            <div class="lg:container my-auto mx-auto lg:mx-0">
+                <p class="text-2xl text-center lg:text-left md:text-3xl mt-4 mb-5" style="font-family: 'Poppins', sans-serif; font-weight: 700;">Key Points</p>
+                <div>
+                    <ul>
+                        <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Six month program</li>
+                        <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Blended Learning</li>
+                        <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Learn from industry experts</li>
+                        <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Project based learnign</li>
+                        <li class="sm:text-lg sm:text-xl md:text-2xl mt-2">Key tools & technologies</li>
+                    </ul>
                     </p>
-                    </div>
                 </div>
-                    <img src="/static/images/img2.jpg" width="500px" class="mx-auto lg:mx-0 rounded" alt="Virtual Reality NextGen Lab">
+            </div>
+            <img src="/static/images/img2.jpg" width="500px" class="mx-auto lg:mx-0 rounded" alt="Virtual Reality NextGen Lab">
         </div>
     </div>
     <br>

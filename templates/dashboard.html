@@ -16,7 +16,6 @@
     <p class="text-2xl font-bold underline underline-offset-4">Registered Students Details</p>
     <p class="text-lg font-bold text-red-500 font-bold mt-3" id="message"></p>
     <br/>
-
     <table class="table-auto border-collapse border border-slate-400">
         <thead>
             <tr>
@@ -31,24 +30,22 @@
         </thead>
         <tbody>
             {% for data in datas %}
-            <tr>
+            <tr id="trid{{data.id}}">
                 <td class="border border-slate-300 px-2 py-1">{{ data.id }}</td>
                 <td class="border border-slate-300 px-2 py-1">{{ data.name }}</td>
                 <td class="border border-slate-300 px-2 py-1">{{ data.email }}</td>
                 <td class="border border-slate-300 px-2 py-1">{{ data.phone }}</td>
                 <td class="border border-slate-300 px-2 py-1">{{ (data.date).strftime("%d-%m-%Y %H:%M:%S") }}</td>
-                <form method="POST" action="/dashboard/entry/modify/report/{{data.id}}">
-                    <td class="border border-slate-300 px-2 py-1">
-                        <textarea name="report">{{data.remark}}</textarea><br>
-                        <button type="submit" class="my-1 
+                <td class="border border-slate-300 px-2 py-1">
+                    <textarea id="remark{{data.id}}">{{data.remark}}</textarea><br>
+                    <button onclick='saveRemark({{data.id}})' class="my-1 
                         bg-green-500 hover:bg-green-600 
                         active:bg-green-700 focus:outline-none 
                         focus:ring focus:ring-green-300 
                         rounded  px-5 py-1 text-lg font-bold text-white">Save Report</button>
-                    </td>
-                </form>
+                </td>
                 <td class="border border-slate-300 px-2 py-1">
-                    <button onclick="window.location.href='/dashboard/entry/delete/{{data.id}}'" class="my-1 
+                    <button onclick=' deleteRegistration({{data.id}})' class="my-1 
                     bg-red-500 hover:bg-red-600 
                     active:bg-red-700 focus:outline-none 
                     focus:ring focus:ring-red-300 
@@ -61,10 +58,32 @@
 </body>
 
 <script>
-    var url = new URL(window.location.href);
-    var message = url.searchParams.get("message");
-    if (message != null) {
-        document.getElementById("message").innerText = message;
+    function deleteRegistration(id) {
+        fetch("/dashboard/entry/delete/" + id, {
+            method: 'POST'
+        }).then(response => response.json()).then(res => {
+            document.getElementById("message").innerText = res.message;
+            if (res.type == "error") {
+                document.getElementById("message").style.color = "red";
+            } else {
+                document.getElementById("message").style.color = "green";
+                document.getElementById("trid" + id).remove();
+            }
+        })
+    }
+
+    function saveRemark(id) {
+        fetch("/dashboard/entry/modify/report/" + id, {
+            method: 'POST',
+            body: document.getElementById("remark" + id).innerText
+        }).then(response => response.json()).then(res => {
+            document.getElementById("message").innerText = res.message;
+            if (res.type == "error") {
+                document.getElementById("message").style.color = "red";
+            } else {
+                document.getElementById("message").style.color = "green";
+            }
+        })
     }
 </script>
 

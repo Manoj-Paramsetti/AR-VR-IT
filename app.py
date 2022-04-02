@@ -1,14 +1,11 @@
 from crypt import methods
-from flask import (
-    Flask,
-    render_template,
-    request,
-    redirect
-)
+from os import urandom
+from flask import Flask, render_template, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 
 from datetime import datetime
 app = Flask(__name__)
+app.secret_key=urandom(50)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///registedstudents.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -45,26 +42,27 @@ def display():
     datas=Register.query.order_by(Register.date)
     return render_template('dashboard.html', datas=datas)
 
-@app.route("/dashboard/entry/delete/<id>")
+@app.route("/dashboard/entry/delete/<id>", methods=["POST"])
 def dashboard_delete_entry(id: int):
+    print(id)
     entry=Register.query.get(id)
     if entry==None:
-        return redirect("/error/Invalid%20Entry")
+        return {"message": "ID {} does not exist".format(id), "type": "error"}
     else:
         db.session.delete(entry)
         db.session.commit()
-        return redirect("/dashboard?message=ID%20number%20"+id+"%20is%20Deleted%20Successful")
+        return {"message": "Registration with ID {} deleted successfully.".format(id), "type": "info"}
 
 @app.route("/dashboard/entry/modify/report/<id>", methods=['POST'])
 def dashboard_modify_report(id: int):
-    remark=request.form['report']
+    remark=request.data
     try:
         registration=Register.query.get(id)
         registration.remark=remark
         db.session.commit()
-        return redirect("/dashboard?message=Remark%20updates%20successfully%20for%20ID%20{}".format(id))
+        return {"message": "Remark updated successfully for ID {}.".format(id), "type": "info"}
     except Exception as err:
-        return redirect("/error/{}".format(str(err)))
+        return {"message": str(err), "type": "error"}
 
 @app.route('/registered')
 def registered():
