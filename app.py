@@ -23,7 +23,7 @@ class Register(db.Model):
     email=db.Column(db.String, nullable=False, unique=True)
     phone=db.Column(db.Integer, nullable=False)
     date=db.Column(db.DateTime, default=datetime.utcnow)
-    remark=db.Column(db.String, nullable=True)
+    remark=db.Column(db.String, nullable=False, default="")
 
 @app.route('/', methods=['GET', 'POST'])
 def register():
