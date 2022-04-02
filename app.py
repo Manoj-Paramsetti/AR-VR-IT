@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import (
     Flask,
     render_template,
@@ -22,6 +23,7 @@ class Register(db.Model):
     email=db.Column(db.String, nullable=False, unique=True)
     phone=db.Column(db.Integer, nullable=False)
     date=db.Column(db.DateTime, default=datetime.utcnow)
+    remark=db.Column(db.String, nullable=True)
 
 @app.route('/', methods=['GET', 'POST'])
 def register():
@@ -52,6 +54,17 @@ def dashboard_delete_entry(id: int):
         db.session.delete(entry)
         db.session.commit()
         return redirect("/dashboard?message=ID%20number%20"+id+"%20is%20Deleted%20Successful")
+
+@app.route("/dashboard/entry/modify/report/<id>", methods=['POST'])
+def dashboard_modify_report(id: int):
+    remark=request.form['report']
+    try:
+        registration=Register.query.get(id)
+        registration.remark=remark
+        db.session.commit()
+        return redirect("/dashboard?message=Remark%20updates%20successfully%20for%20ID%20{}".format(id))
+    except Exception as err:
+        return redirect("/error/{}".format(str(err)))
 
 @app.route('/registered')
 def registered():

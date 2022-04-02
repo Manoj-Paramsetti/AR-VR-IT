@@ -25,6 +25,7 @@
                 <th class="border border-slate-300 px-2 py-1">Email</th>
                 <th class="border border-slate-300 px-2 py-1">Phone Number</th>
                 <th class="border border-slate-300 px-2 py-1">Time</th>
+                <th class="border border-slate-300 px-2 py-1">Remark</th>
                 <th class="border border-slate-300 px-2 py-1">Actions</th>
             </tr>
         </thead>
@@ -36,11 +37,23 @@
                 <td class="border border-slate-300 px-2 py-1">{{ data.email }}</td>
                 <td class="border border-slate-300 px-2 py-1">{{ data.phone }}</td>
                 <td class="border border-slate-300 px-2 py-1">{{ (data.date).strftime("%d-%m-%Y %H:%M:%S") }}</td>
-                <td class="border border-slate-300 px-2 py-1"><button onclick="window.location.href='/dashboard/entry/delete/{{data.id}}'" class="my-1 
+                <form method="POST" action="/dashboard/entry/modify/report/{{data.id}}">
+                    <td class="border border-slate-300 px-2 py-1">
+                        <textarea name="report">{{data.remark}}</textarea><br>
+                        <button type="submit" class="my-1 
+                        bg-green-500 hover:bg-green-600 
+                        active:bg-green-700 focus:outline-none 
+                        focus:ring focus:ring-green-300 
+                        rounded  px-5 py-1 text-lg font-bold text-white">Save Report</button>
+                    </td>
+                </form>
+                <td class="border border-slate-300 px-2 py-1">
+                    <button onclick="window.location.href='/dashboard/entry/delete/{{data.id}}'" class="my-1 
                     bg-red-500 hover:bg-red-600 
                     active:bg-red-700 focus:outline-none 
                     focus:ring focus:ring-red-300 
-                    rounded  px-5 py-1 text-lg font-bold text-white">Delete</button></td>
+                    rounded  px-5 py-1 text-lg font-bold text-white">Delete</button>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
