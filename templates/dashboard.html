@@ -13,8 +13,8 @@
     <img src="https://sathyabama.cognibot.in/pluginfile.php/1/theme_klass/logo/1636949046/logo.svg" style="filter: invert(100%)" width="300px" />
     <br/>
     <br/>
-    <p class="text-lg font-bold">Registered Students Details</p>
-    <p class="text-lg font-bold" style="color: red;" id="message"></p>
+    <p class="text-2xl font-bold underline underline-offset-4">Registered Students Details</p>
+    <p class="text-lg font-bold text-red-500 font-bold mt-3" id="message"></p>
     <br/>
 
     <table class="table-auto border-collapse border border-slate-400">
@@ -36,7 +36,11 @@
                 <td class="border border-slate-300 px-2 py-1">{{ data.email }}</td>
                 <td class="border border-slate-300 px-2 py-1">{{ data.phone }}</td>
                 <td class="border border-slate-300 px-2 py-1">{{ (data.date).strftime("%d-%m-%Y %H:%M:%S") }}</td>
-                <td class="border border-slate-300 px-2 py-1"><button onclick="window.location.href='/dashboard/entry/delete/{{data.id}}'">Delete</button></td>
+                <td class="border border-slate-300 px-2 py-1"><button onclick="window.location.href='/dashboard/entry/delete/{{data.id}}'" class="my-1 
+                    bg-red-500 hover:bg-red-600 
+                    active:bg-red-700 focus:outline-none 
+                    focus:ring focus:ring-red-300 
+                    rounded  px-5 py-1 text-lg font-bold text-white">Delete</button></td>
             </tr>
             {% endfor %}
         </tbody>
