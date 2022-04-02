@@ -1,10 +1,37 @@
-Login <br><br>
-
-<form method="POST">
-    Username: <input type="text" name="username">
-    <br> Password: <input type="password" name="passwd">
-    <br>
-    <button type="submit">Submit</button> {% if error!=None %}
-    <div style="color: red;">{{error}}</div>
-    {% endif %}
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container p-10 mx-auto">
+        <img class="mx-auto" src="https://sathyabama.cognibot.in/pluginfile.php/1/theme_klass/logo/1636949046/logo.svg" style="filter: invert(100%)" width="300px" />
+        <br/>
+        <br/>   
+        <form class="my-3 w-[350px] mx-auto px-5 bg-white rounded-lg drop-shadow-2xl glassbg" method="POST" action="#">
+            <p class="text-2xl mt-10 text-blue-500 text-center" style="font-family: 'Poppins', sans-serif; font-weight: 600;">Login</p>
+            <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
+                User
+            </label>
+            <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block rounded-sm focus:ring-1" type="text" name="username" required autofocus>
+            <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
+                Password
+            </label>
+            <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block w-lg rounded-sm focus:ring-1" type="password" name="passwd" required>
+            {% if error!=None %}
+            <div style="color: red;" class="container text-center">{{error}}</div>
+            {% endif %}
+            <button class="my-5 flex-shrink-0 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded w-full py-2 text-lg font-bold text-white" type="submit">
+                Login
+            </button>
+        </form>
+    </div>
+</body>
+</html>
