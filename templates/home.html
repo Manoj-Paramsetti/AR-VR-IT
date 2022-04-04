@@ -7,27 +7,29 @@
     <title>AR/VR Certification Programme | Sathyabama Institute of Science and Technology</title>
     <link rel="stylesheet" href="/static/styles/main.css">
     <style>
-        .mySlides {display: none;}
+        .mySlides {
+            display: none;
+        }
         
         .dot {
-          height: 15px;
-          width: 15px;
-          margin: 0 2px;
-          background-color: #bbb;
-          border-radius: 50%;
-          display: inline-block;
-          transition: background-color 0.6s ease;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
         }
         
         .active {
-          background-color: #3B82F6;
+            background-color: #3B82F6;
         }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-    
+
 </head>
 
 <body>
@@ -96,45 +98,56 @@
     <div class="py-4 glassbg">
         <p class="text-2xl text-center md:text-3xl mt-4 mb-5" style="font-family: 'Poppins', sans-serif; font-weight: 700;">Classrooms</p>
         <div class="max-w-[800px] mt-10 m-auto flex justify-center">
-            <img class="img mySlides my-auto" src="/static/images/nextgenlabphotos/1.jpg" style="width:100%"> 
-            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/2.jpg"  style="width:100%">
-            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/3.jpg" style="width:100%">
-            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/4.jpg" style="width:100%">
-            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/5.jpg" style="width:100%">
+            <img class="img mySlides my-auto" src="/static/images/nextgenlabphotos/1.jpg" style="width:100%; border-radius: var(--border-radius);">
+            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/2.jpg" style="width:100%; border-radius: var(--border-radius);">
+            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/3.jpg" style="width:100%; border-radius: var(--border-radius);">
+            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/4.jpg" style="width:100%; border-radius: var(--border-radius);">
+            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/5.jpg" style="width:100%; border-radius: var(--border-radius);">
         </div>
         <br>
         <div style="text-align:center">
-            <span class="dot"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
+            <span class="dot" onclick="stopExistingSlideshow(); slideIndex=0; showSlides();"></span>
+            <span class="dot" onclick="stopExistingSlideshow(); slideIndex=1; showSlides();"></span>
+            <span class="dot" onclick="stopExistingSlideshow(); slideIndex=2; showSlides();"></span>
+            <span class="dot" onclick="stopExistingSlideshow(); slideIndex=3; showSlides();"></span>
+            <span class="dot" onclick="stopExistingSlideshow(); slideIndex=4; showSlides();"></span>
         </div>
     </div>
     <br>
     <br>
     <script>
-    let slideIndex = 0;
-    showSlides();
-    
-    function showSlides() {
-    let i;
-    let slides = document.getElementsByClassName("mySlides");
-    let dots = document.getElementsByClassName("dot");
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";  
-    }
-    slideIndex++;
-    if (slideIndex > slides.length) {slideIndex = 1}    
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
-    slides[slideIndex-1].style.display = "block";  
-    dots[slideIndex-1].className += " active";
-    setTimeout(showSlides, 3000);
-    }
-    </script>
-    
+        let slideIndex = 0;
+        var timeouts = [];
+        showSlides();
 
-    </body>
+        function stopExistingSlideshow() {
+            timeouts.forEach((timeout) => {
+                clearTimeout(timeout)
+            });
+            timeouts = [];
+        }
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            timeouts.push(setTimeout(showSlides, 3000));
+        }
+    </script>
+
+
+</body>
+
 </html>

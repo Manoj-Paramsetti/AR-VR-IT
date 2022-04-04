@@ -2,6 +2,37 @@
     --border-radius: 6px;
 }
 
+
+/* ===== Scrollbar CSS ===== */
+
+
+/* Firefox */
+
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #3b82f6 #c8f2fe;
+}
+
+
+/* Chrome, Edge, and Safari */
+
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #fde9fb;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #3b82f6;
+    border-radius: 10px;
+    border: 3px solid #3b82f6;
+}
+
+
+/* ======= End of Scrollbar CSS ======= */
+
 .backgroundImage {
     position: fixed;
     z-index: -1;
@@ -35,5 +66,9 @@ li {
 }
 
 .glassbg {
-    background-color:rgba(255, 255, 255, .4) !important;
+    background-color: rgba(255, 255, 255, .4) !important;
+}
+
+.dot {
+    cursor: pointer;
 }
