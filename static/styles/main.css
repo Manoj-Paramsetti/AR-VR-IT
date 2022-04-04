@@ -7,7 +7,7 @@
     z-index: -1;
     height: 100%;
     width: 100%;
-    opacity: 0.50;
+    opacity: .3;
 }
 
 input {
@@ -35,5 +35,5 @@ li {
 }
 
 .glassbg {
-    background-color: rgba(255, 255, 255, .4) !important;
+    background-color:rgba(255, 255, 255, .4) !important;
 }
