@@ -130,6 +130,11 @@ def dashboard_modify_report(id: int):
     except Exception as err:
         return {"message": str(err), "type": "error"}
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/dashboard/login')
+
 @app.route('/registered')
 def registered():
     return render_template('registered.html')
