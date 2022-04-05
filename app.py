@@ -2,12 +2,13 @@ from os import urandom
 from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from hashlib import sha1
+import re
 
 from datetime import datetime
 app = Flask(__name__)
 app.secret_key=urandom(50)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///registedstudents.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///registeredStudents.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -19,6 +20,8 @@ class Register(db.Model):
     name=db.Column(db.String, nullable=False)
     email=db.Column(db.String, nullable=False, unique=True)
     phone=db.Column(db.Integer, nullable=False)
+    city=db.Column(db.String, nullable=False)
+    qualification=db.Column(db.String, nullable=False)
     date=db.Column(db.DateTime, default=datetime.utcnow)
     remark=db.Column(db.String, nullable=False, default="")
 
@@ -33,15 +36,29 @@ class User(db.Model):
 def register():
     if request.method == 'POST':
         name=request.form['name']
-        email=request.form['email']
+        email=request.form['email'].lower()
         phone=request.form['phone']
-        new_student = Register(name = name, email = email, phone = phone)
-        try:
-            db.session.add(new_student)
-            db.session.commit()
-            return redirect('/registered')
-        except Exception as err:
-            return redirect('/error/{}'.format(str(err)))
+        city=request.form['city']
+        qualification=request.form['qualification']
+        new_student = Register(name = name, email = email, phone = phone, city=city, qualification=qualification)
+        if(email==re.search("(([a-zA-Z1-9])|(\\.[a-zA-Z1-9]))*@[a-z]*\\.[a-z]{2,4}", email).group()):
+            if(phone.isdigit()):
+                if(int(phone)>6000000000 and int(phone)<10000000000):
+                    try:
+                        db.session.add(new_student)
+                        db.session.commit()
+                        return redirect('/registered')
+                    except Exception as err:
+                        return redirect('/error/{}'.format(str(err)))
+                else:
+                    message='error/Enter%20valid%20phone%20number%20(10%20digits%20number)'
+                    return redirect(message)
+            else:
+                message='error/Enter%20valid%20phone%20number%20(10%20digits%20number)'
+                return redirect(message)
+        else:
+            message='/error/Email%20ID%20is%20invalid'
+            return redirect('Email ID is invalid')
     return render_template('home.html')
 
 @app.route('/dashboard/login', methods=["GET", "POST"])
@@ -144,3 +161,8 @@ def error(message: str):
 
 if __name__=="__main__":
     app.run(debug=True)
+
+# https://executive-ed.xpro.mit.edu/virtual-reality-augmented-reality
+# https://xrcourse.com/syr/courses/xr-development-with-unity
+# https://amityonline.com/lp/tcsion-mca-bca/
+# https://www.backstagepass.co.in/landing-page/augmented-reality-virtual-reality/
