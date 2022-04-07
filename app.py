@@ -44,10 +44,10 @@ def register():
         qualification=request.form['qualification']
         if name.strip()=="" or email.strip()=="" or email.strip()=="" or city.strip()=="" or qualification=="":
             return render_template("home.html", "All fields are required!")
-        if not bool(Register.query.filter_by(email=email).first()):
+        if Register.query.filter_by(email=email).first()!=None:
             return render_template('home.html', error="Email address is already used.")
         new_student = Register(name = name, email = email, phone = phone, city=city, qualification=qualification)
-        if validate_email(email, verify=True):
+        if validate_email(email):
             if phone.isdigit() and len(phone)==10:
                 try:
                     db.session.add(new_student)
