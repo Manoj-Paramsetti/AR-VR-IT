@@ -1,4 +1,3 @@
-from email.policy import default
 from os import urandom
 from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
