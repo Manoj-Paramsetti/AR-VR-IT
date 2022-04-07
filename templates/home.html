@@ -66,6 +66,10 @@
             background-image: radial-gradient(#5a67d8 2px, transparent 2px);
             background-size: 16px 16px;
         }
+        .grid-white {
+            background-image: radial-gradient(#FFF 2px, transparent 2px);
+            background-size: 16px 16px;
+        }
     </style>
 </head>
 
@@ -210,24 +214,26 @@
     <hr>
     <br>
     <br>
-    <div class="py-4 bg-blue-400">
-        <p class="text-2xl text-center text-slate-50 md:text-3xl mt-4 mb-5" style="font-family: 'Poppins', sans-serif; font-weight: 700;">Classrooms</p>
-        <div class="max-w-[800px] mt-10 m-auto flex justify-center">
-            <img class="img mySlides my-auto" src="/static/images/nextgenlabphotos/1.jpg" style="width:100%; border-radius: var(--border-radius);">
-            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/2.jpg" style="width:100%; border-radius: var(--border-radius);">
-            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/3.jpg" style="width:100%; border-radius: var(--border-radius);">
-            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/4.jpg" style="width:100%; border-radius: var(--border-radius);">
-            <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/5.jpg" style="width:100%; border-radius: var(--border-radius);">
+    <span class="relative antialiased">
+        <div class="py-4 bg-blue-400">
+            <p class="text-2xl text-center text-slate-50 md:text-3xl mt-4 mb-5" style="font-family: 'Poppins', sans-serif; font-weight: 700;">Classrooms</p>
+            <div class="max-w-[800px] mt-10 grid-white pt-10 pb-5 md:pt-10 md:pr-10 md:p-5 m-auto flex justify-center">
+                <img class="img mySlides my-auto" src="/static/images/nextgenlabphotos/1.jpg" style="width:100%; border-radius: var(--border-radius);">
+                <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/2.jpg" style="width:100%; border-radius: var(--border-radius);">
+                <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/3.jpg" style="width:100%; border-radius: var(--border-radius);">
+                <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/4.jpg" style="width:100%; border-radius: var(--border-radius);">
+                <img class="img my-auto mySlides" src="/static/images/nextgenlabphotos/5.jpg" style="width:100%; border-radius: var(--border-radius);">
+            </div>
+            <br>
+            <div style="text-align:center">
+                <span class="dot" onclick="stopExistingSlideshow(); slideIndex=0; showSlides();"></span>
+                <span class="dot" onclick="stopExistingSlideshow(); slideIndex=1; showSlides();"></span>
+                <span class="dot" onclick="stopExistingSlideshow(); slideIndex=2; showSlides();"></span>
+                <span class="dot" onclick="stopExistingSlideshow(); slideIndex=3; showSlides();"></span>
+                <span class="dot" onclick="stopExistingSlideshow(); slideIndex=4; showSlides();"></span>
+            </div>
         </div>
-        <br>
-        <div style="text-align:center">
-            <span class="dot" onclick="stopExistingSlideshow(); slideIndex=0; showSlides();"></span>
-            <span class="dot" onclick="stopExistingSlideshow(); slideIndex=1; showSlides();"></span>
-            <span class="dot" onclick="stopExistingSlideshow(); slideIndex=2; showSlides();"></span>
-            <span class="dot" onclick="stopExistingSlideshow(); slideIndex=3; showSlides();"></span>
-            <span class="dot" onclick="stopExistingSlideshow(); slideIndex=4; showSlides();"></span>
-        </div>
-    </div>
+    </span>
     <br>
     <br>
     <div class="antialiased sans-serif text-gray-600">
