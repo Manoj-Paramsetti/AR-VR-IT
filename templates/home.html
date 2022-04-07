@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-    
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AR/VR Certification Programme | Sathyabama Institute of Science and Technology</title>
-        <link rel="stylesheet" href="/static/styles/main.css">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
-        <style>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AR/VR Certification Programme | Sathyabama Institute of Science and Technology</title>
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
+    <style>
         .mySlides {
             display: none;
         }
@@ -30,38 +30,46 @@
         .active {
             background-color: #000;
         }
+        
         .poppins {
             font-style: 'Poppins', sans-serif !important;
         }
-        .form-reverse{
+        
+        .form-reverse {
             display: none;
         }
+        
         .collapsible {
             cursor: pointer;
             text-align: left;
             outline: none;
             font-size: 15px;
         }
-          
+        
         .content {
             padding: 0 18px;
             display: none;
             overflow: hidden;
         }
+        
         @media screen and (min-width: 1024px) {
-            .form{
-                position:absolute; right:80px;
+            .form {
+                position: absolute;
+                right: 80px;
             }
-            .form-reverse{
+            .form-reverse {
                 display: block;
             }
         }
+        
         .serif {
             font-family: 'Zilla Slab', serif;
         }
-
-        [x-cloak] { display: none; }
-
+        
+        [x-cloak] {
+            display: none;
+        }
+        
         .grid-indigo {
             background-image: radial-gradient(#5a67d8 2px, transparent 2px);
             background-size: 16px 16px;
@@ -74,16 +82,15 @@
         <div style="font-family: 'Poppins', sans-serif; font-weight: 700;" class="my-auto text-slate-900 text-center font-bold text-xl poppins">
             <img class="w-[280px] md:w-[350px]" src="/static/images/sistLogo.png">
             <hr class="m-2">
-            SCHOOL OF COMPUTING
-            <br/>
-            DEPARTMENT OF IT
+            <div style="font-size: .95rem; line-height: 1.3; margin-left: 2.6vh;">SCHOOL OF COMPUTING<br>DEPARTMENT OF IT</div>
         </div>
     </nav>
     <div class="flex mx-auto flex-col mb-10 flex h-92 lg:mx-auto sm:px-20 lg:flex-row px-5">
         <div class="container my-20 mx-auto lg:mx-10">
             <h1 class="text-4xl max-w-[700px] font-bold" style="font-family: 'Montserrat', sans-serif; font-weight: 700;">Certification Programme in Augumented Reality & Virtual Reality</h1>
             <h2 class="text-slate-700 mt-3 mx-auto lg:mx-0 max-w-[1250px] text-justify" style="font-family: 'Poppins', sans-serif; font-weight: 500;">
-                Augmented Reality and Virtual Reality (AR/VR) are immersive technologies that enable users to experience digitally rendered content in both physical & virtual spaces and offer the notable potential for EduTech Innovation. This course is offered by Sathyabama Institute of Science and Technology (School of Computing, Department of IT) in collaboration with Scopik EduTech Pvt. Ltd
+                Augmented Reality and Virtual Reality (AR/VR) are immersive technologies that enable users to experience digitally rendered content in both physical & virtual spaces and offer the notable potential for EduTech Innovation. This course is offered by Sathyabama
+                Institute of Science and Technology (School of Computing, Department of IT) in collaboration with Scopik EduTech Pvt. Ltd
             </h2>
         </div>
         <div class="form-reverse flex-shrink-0 sm:w-[520px] md:w-[420px] lg:w-[400px] my-3 w-[280px] mx-auto lg:mx-0 px-5 bg-white rounded-lg"></div>
@@ -92,7 +99,7 @@
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 Name
             </label>
-            <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block rounded-sm focus:ring-1" type="text" name="name" required autofocus>
+            <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block rounded-sm focus:ring-1" type="text" name="name" required autofocus='true'>
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 Email
             </label>
@@ -100,7 +107,8 @@
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 Whatsapp Number
             </label>
-            <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block w-lg rounded-sm focus:ring-1" type="number" name="phone" min="6000000000" max="9999999999" required>
+            <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block w-lg rounded-sm focus:ring-1" type="number" name="phone" min="6000000000" max="9999999999"
+                required>
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 City
             </label>
@@ -109,10 +117,15 @@
                 Qualification
             </label>
             <input class="mt-1 px-2 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block w-lg rounded-sm focus:ring-1" type="text" name="qualification" required>
-            
+
             <button class="my-6 flex-shrink-0 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded w-full py-2 text-lg font-bold text-white" type="submit">
                 Book Now
-            </button>
+            </button> {% if error!=None %}
+            <center>
+                <div style="color: red;">{{error}}</div>
+                <br>
+            </center>
+            {% endif %}
         </form>
     </div>
     <div class="flex flex-col my-10 lg:flex-row h-92 bg-blue-500" style="font-family: 'Montserrat', sans-serif; font-weight: 400;">
@@ -148,61 +161,61 @@
     <div class="py-4 px-10">
         <p class="text-2xl text-blue-800 text-center md:text-3xl mt-4 mb-5" style="font-family: 'Poppins', sans-serif; font-weight: 700;">Course Syllabus</p>
         <div class="max-w-[1200px] mt-10 m-auto flex text-xl justify-center">
-            On a daily basis we interact with company expert’s in these domains to fine tune our curriculum. Here are the list of courses that are part of this program. 
+            On a daily basis we interact with company expert’s in these domains to fine tune our curriculum. Here are the list of courses that are part of this program.
         </div>
-        
+
         <div class="collapsible mt-10 mx-auto max-w-[1200px] p-5 bg-blue-200 text-lg lg:text-xl ">
             <b class="text-slate-600">Chapter 1</b>
             <br/>
             <b class="text-blue-800 text-xl lg:text-2xl">Chapter Name</b>
         </div>
         <div class="content mx-auto mb-20 max-w-[1200px] p-5 bg-blue-100 text-md lg:text-xl rounded-b-xl">
-            <p>Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - 
-                Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic
+            <p>Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic -
+                Topic - Topic - Topic - Topic - Topic - Topic
             </p>
         </div>
-        
+
         <div class="collapsible mt-10 mx-auto max-w-[1200px] p-5 bg-blue-200 text-lg lg:text-xl ">
             <b class="text-slate-600">Chapter 2</b>
             <br/>
             <b class="text-blue-800 text-xl lg:text-2xl">Chapter Name</b>
         </div>
         <div class="content mx-auto mb-20 max-w-[1200px] p-5 bg-blue-100 text-md lg:text-xl rounded-b-xl">
-            <p>Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - 
-                Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic
+            <p>Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic -
+                Topic - Topic - Topic - Topic - Topic - Topic
             </p>
         </div>
-        
+
         <div class="collapsible mt-10 mx-auto max-w-[1200px] p-5 bg-blue-200 text-lg lg:text-xl ">
             <b class="text-slate-600">Chapter 3</b>
             <br/>
             <b class="text-blue-800 text-xl lg:text-2xl">Chapter Name</b>
         </div>
         <div class="content mx-auto mb-20 max-w-[1200px] p-5 bg-blue-100 text-md lg:text-xl rounded-b-xl">
-            <p>Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - 
-                Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic
+            <p>Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic -
+                Topic - Topic - Topic - Topic - Topic - Topic
             </p>
         </div>
-        
+
         <div class="collapsible mt-10 mx-auto max-w-[1200px] p-5 bg-blue-200 text-lg lg:text-xl ">
             <b class="text-slate-600">Chapter 4</b>
             <br/>
             <b class="text-blue-800 text-xl lg:text-2xl">Chapter Name</b>
         </div>
         <div class="content mx-auto mb-20 max-w-[1200px] p-5 bg-blue-100 text-md lg:text-xl rounded-b-xl">
-            <p>Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - 
-                Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic
+            <p>Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic -
+                Topic - Topic - Topic - Topic - Topic - Topic
             </p>
         </div>
-        
+
         <div class="collapsible mt-10 mx-auto max-w-[1200px] p-5 bg-blue-200 text-lg lg:text-xl ">
             <b class="text-slate-600">Chapter 5</b>
             <br/>
             <b class="text-blue-800 text-xl lg:text-2xl">Chapter Name</b>
         </div>
         <div class="content mx-auto mb-20 max-w-[1200px] p-5 bg-blue-100 text-md lg:text-xl rounded-b-xl">
-            <p>Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - 
-                Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic
+            <p>Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic - Topic -
+                Topic - Topic - Topic - Topic - Topic - Topic
             </p>
         </div>
     </div>
@@ -231,76 +244,66 @@
     <br>
     <br>
     <div class="antialiased sans-serif text-gray-600">
-		
-		<div class="my-10 md:my-24 container mx-auto flex flex-col md:flex-row shadow-sm overflow-hidden" x-data="{ testimonialActive: 2 }" x-cloak>
-			<div class="relative w-full py-2 md:py-24 bg-indigo-700 md:w-1/2 flex flex-col item-center justify-center">
-				
-				<div class="absolute top-0 left-0 z-10 grid-indigo w-16 h-16 md:w-40 md:h-40 md:ml-20 md:mt-24"></div>
-				
-				<div class="relative text-2xl md:text-5xl py-2 px-6 md:py-6 md:px-1 md:w-64 md:mx-auto text-indigo-100 font-semibold leading-tight tracking-tight mb-0 z-20">
-					<span class="md:block">Testimonial</span>
-				</div>
 
-				<div class="absolute right-0 bottom-0 mr-4 mb-4 hidden md:block">
-					<button 
-						class="rounded-l-full border-r bg-gray-100 text-gray-500 focus:outline-none hover:text-indigo-500 font-bold w-12 h-10"
-						x-on:click="testimonialActive = testimonialActive === 1 ? 2 : testimonialActive - 1">
+        <div class="my-10 md:my-24 container mx-auto flex flex-col md:flex-row shadow-sm overflow-hidden" x-data="{ testimonialActive: 2 }" x-cloak>
+            <div class="relative w-full py-2 md:py-24 bg-indigo-700 md:w-1/2 flex flex-col item-center justify-center">
+
+                <div class="absolute top-0 left-0 z-10 grid-indigo w-16 h-16 md:w-40 md:h-40 md:ml-20 md:mt-24"></div>
+
+                <div class="relative text-2xl md:text-5xl py-2 px-6 md:py-6 md:px-1 md:w-64 md:mx-auto text-indigo-100 font-semibold leading-tight tracking-tight mb-0 z-20">
+                    <span class="md:block">Testimonial</span>
+                </div>
+
+                <div class="absolute right-0 bottom-0 mr-4 mb-4 hidden md:block">
+                    <button class="rounded-l-full border-r bg-gray-100 text-gray-500 focus:outline-none hover:text-indigo-500 font-bold w-12 h-10" x-on:click="testimonialActive = testimonialActive === 1 ? 2 : testimonialActive - 1">
 						&#8592;
-					</button><button 
-						class="rounded-r-full bg-gray-100 text-gray-500 focus:outline-none hover:text-indigo-500 font-bold w-12 h-10"
-						x-on:click="testimonialActive = testimonialActive >= 2 ? 1 : testimonialActive + 1">
+					</button><button class="rounded-r-full bg-gray-100 text-gray-500 focus:outline-none hover:text-indigo-500 font-bold w-12 h-10" x-on:click="testimonialActive = testimonialActive >= 2 ? 1 : testimonialActive + 1">
 						&#8594;
 					  </button>
-				</div>
-			</div>
+                </div>
+            </div>
 
-			<div class="bg-gray-100 md:w-1/2">
-				<div class="flex flex-col h-full relative">
+            <div class="bg-gray-100 md:w-1/2">
+                <div class="flex flex-col h-full relative">
 
-					<div class="absolute top-0 left-0 mt-3 ml-4 md:mt-5 md:ml-12">
-						<svg xmlns="http://www.w3.org/2000/svg" class="text-indigo-200 fill-current w-12 h-12 md:w-16 md:h-16" viewBox="0 0 24 24"><path d="M6.5 10c-.223 0-.437.034-.65.065.069-.232.14-.468.254-.68.114-.308.292-.575.469-.844.148-.291.409-.488.601-.737.201-.242.475-.403.692-.604.213-.21.492-.315.714-.463.232-.133.434-.28.65-.35.208-.086.39-.16.539-.222.302-.125.474-.197.474-.197L9.758 4.03c0 0-.218.052-.597.144C8.97 4.222 8.737 4.278 8.472 4.345c-.271.05-.56.187-.882.312C7.272 4.799 6.904 4.895 6.562 5.123c-.344.218-.741.4-1.091.692C5.132 6.116 4.723 6.377 4.421 6.76c-.33.358-.656.734-.909 1.162C3.219 8.33 3.02 8.778 2.81 9.221c-.19.443-.343.896-.468 1.336-.237.882-.343 1.72-.384 2.437-.034.718-.014 1.315.028 1.747.015.204.043.402.063.539.017.109.025.168.025.168l.026-.006C2.535 17.474 4.338 19 6.5 19c2.485 0 4.5-2.015 4.5-4.5S8.985 10 6.5 10zM17.5 10c-.223 0-.437.034-.65.065.069-.232.14-.468.254-.68.114-.308.292-.575.469-.844.148-.291.409-.488.601-.737.201-.242.475-.403.692-.604.213-.21.492-.315.714-.463.232-.133.434-.28.65-.35.208-.086.39-.16.539-.222.302-.125.474-.197.474-.197L20.758 4.03c0 0-.218.052-.597.144-.191.048-.424.104-.689.171-.271.05-.56.187-.882.312-.317.143-.686.238-1.028.467-.344.218-.741.4-1.091.692-.339.301-.748.562-1.05.944-.33.358-.656.734-.909 1.162C14.219 8.33 14.02 8.778 13.81 9.221c-.19.443-.343.896-.468 1.336-.237.882-.343 1.72-.384 2.437-.034.718-.014 1.315.028 1.747.015.204.043.402.063.539.017.109.025.168.025.168l.026-.006C13.535 17.474 15.338 19 17.5 19c2.485 0 4.5-2.015 4.5-4.5S19.985 10 17.5 10z"/></svg>
-					</div>
-					 
-					<div class="h-full relative z-10">
-						<div x-show.immediate="testimonialActive === 1">
-							<p class="text-gray-600 serif font-normal italic px-6 py-6 md:px-16 md:py-10 text-xl md:text-2xl" x-show.transition="testimonialActive == 1">
-                                This course is a good start for complete beginners and gives an overall understanding of what AR is and what makes it possible. The course will give you a basic information of what hardware and software make AR possible for smartphones and headsets; you will know how computers can understand environment via computer vision, image processing, motion tracking and limitation of such understanding. You will know what UI/UX is and how to plan workflow for app development. Since the time when this course was established, Google has solved one of AR constraints — now AR object can be occluded by real world objects
+                    <div class="absolute top-0 left-0 mt-3 ml-4 md:mt-5 md:ml-12">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-indigo-200 fill-current w-12 h-12 md:w-16 md:h-16" viewBox="0 0 24 24"><path d="M6.5 10c-.223 0-.437.034-.65.065.069-.232.14-.468.254-.68.114-.308.292-.575.469-.844.148-.291.409-.488.601-.737.201-.242.475-.403.692-.604.213-.21.492-.315.714-.463.232-.133.434-.28.65-.35.208-.086.39-.16.539-.222.302-.125.474-.197.474-.197L9.758 4.03c0 0-.218.052-.597.144C8.97 4.222 8.737 4.278 8.472 4.345c-.271.05-.56.187-.882.312C7.272 4.799 6.904 4.895 6.562 5.123c-.344.218-.741.4-1.091.692C5.132 6.116 4.723 6.377 4.421 6.76c-.33.358-.656.734-.909 1.162C3.219 8.33 3.02 8.778 2.81 9.221c-.19.443-.343.896-.468 1.336-.237.882-.343 1.72-.384 2.437-.034.718-.014 1.315.028 1.747.015.204.043.402.063.539.017.109.025.168.025.168l.026-.006C2.535 17.474 4.338 19 6.5 19c2.485 0 4.5-2.015 4.5-4.5S8.985 10 6.5 10zM17.5 10c-.223 0-.437.034-.65.065.069-.232.14-.468.254-.68.114-.308.292-.575.469-.844.148-.291.409-.488.601-.737.201-.242.475-.403.692-.604.213-.21.492-.315.714-.463.232-.133.434-.28.65-.35.208-.086.39-.16.539-.222.302-.125.474-.197.474-.197L20.758 4.03c0 0-.218.052-.597.144-.191.048-.424.104-.689.171-.271.05-.56.187-.882.312-.317.143-.686.238-1.028.467-.344.218-.741.4-1.091.692-.339.301-.748.562-1.05.944-.33.358-.656.734-.909 1.162C14.219 8.33 14.02 8.778 13.81 9.221c-.19.443-.343.896-.468 1.336-.237.882-.343 1.72-.384 2.437-.034.718-.014 1.315.028 1.747.015.204.043.402.063.539.017.109.025.168.025.168l.026-.006C13.535 17.474 15.338 19 17.5 19c2.485 0 4.5-2.015 4.5-4.5S19.985 10 17.5 10z"/></svg>
+                    </div>
+
+                    <div class="h-full relative z-10">
+                        <div x-show.immediate="testimonialActive === 1">
+                            <p class="text-gray-600 serif font-normal italic px-6 py-6 md:px-16 md:py-10 text-xl md:text-2xl" x-show.transition="testimonialActive == 1">
+                                This course is a good start for complete beginners and gives an overall understanding of what AR is and what makes it possible. The course will give you a basic information of what hardware and software make AR possible for smartphones and headsets; you
+                                will know how computers can understand environment via computer vision, image processing, motion tracking and limitation of such understanding. You will know what UI/UX is and how to plan workflow for app development. Since
+                                the time when this course was established, Google has solved one of AR constraints — now AR object can be occluded by real world objects
                             </p>
-						</div>
-						
-						<div x-show.immediate="testimonialActive === 2">
-							<p class="text-gray-600 serif font-normal italic px-6 py-6 md:px-16 md:py-10 text-xl md:text-2xl" x-show.transition="testimonialActive == 2">
-								I really enjoyed this short course, introducing basic knowledge about AR/VR and AR Core. Also, it provides me with extended learning material. I highly recommend it to anyone who is interested in learning AR Core.
-							</p>
-						</div>
-						
-					</div>
+                        </div>
 
-					<div class="flex my-4 justify-center items-center">
-						<button 
-							@click.prevent="testimonialActive = 1" 
-							class="text-center font-bold shadow-xs focus:outline-none focus:shadow-outline inline-block rounded-full mx-2"
-							:class="{'h-12 w-12 opacity-25 bg-indigo-300 text-gray-600': testimonialActive != 1, 'h-16 w-16 opacity-100 bg-indigo-600 text-white': testimonialActive == 1 }"	
-						>S</button>
-						<button 
-							@click.prevent="testimonialActive = 2" 
-							class="text-center font-bold shadow-xs focus:outline-none focus:shadow-outline h-16 w-16 inline-block bg-indigo-600 rounded-full mx-2"
-							:class="{'h-12 w-12 opacity-25 bg-indigo-300 text-gray-600': testimonialActive != 2, 'h-16 w-16 opacity-100 bg-indigo-600 text-white': testimonialActive == 2 }"	
-						>V</button>
-					</div>
-					 
-					<div class="flex justify-center px-6 pt-2 pb-6 md:py-6">
-						<div class="text-center" x-show="testimonialActive == 1">
-							<h2 class="text-sm md:text-base font-bold text-gray-700 leading-tight">Sowmiya</h2>
-						</div>
+                        <div x-show.immediate="testimonialActive === 2">
+                            <p class="text-gray-600 serif font-normal italic px-6 py-6 md:px-16 md:py-10 text-xl md:text-2xl" x-show.transition="testimonialActive == 2">
+                                I really enjoyed this short course, introducing basic knowledge about AR/VR and AR Core. Also, it provides me with extended learning material. I highly recommend it to anyone who is interested in learning AR Core.
+                            </p>
+                        </div>
 
-						<div class="text-center" x-show="testimonialActive == 2">
-							<h2 class="text-sm md:text-base font-bold text-gray-700 leading-tight">Valliyappan</h2>
-						</div>	 
-					</div>
-				</div>
-			</div>
-		</div>
+                    </div>
+
+                    <div class="flex my-4 justify-center items-center">
+                        <button @click.prevent="testimonialActive = 1" class="text-center font-bold shadow-xs focus:outline-none focus:shadow-outline inline-block rounded-full mx-2" :class="{'h-12 w-12 opacity-25 bg-indigo-300 text-gray-600': testimonialActive != 1, 'h-16 w-16 opacity-100 bg-indigo-600 text-white': testimonialActive == 1 }">S</button>
+                        <button @click.prevent="testimonialActive = 2" class="text-center font-bold shadow-xs focus:outline-none focus:shadow-outline h-16 w-16 inline-block bg-indigo-600 rounded-full mx-2" :class="{'h-12 w-12 opacity-25 bg-indigo-300 text-gray-600': testimonialActive != 2, 'h-16 w-16 opacity-100 bg-indigo-600 text-white': testimonialActive == 2 }">V</button>
+                    </div>
+
+                    <div class="flex justify-center px-6 pt-2 pb-6 md:py-6">
+                        <div class="text-center" x-show="testimonialActive == 1">
+                            <h2 class="text-sm md:text-base font-bold text-gray-700 leading-tight">Sowmiya</h2>
+                        </div>
+
+                        <div class="text-center" x-show="testimonialActive == 2">
+                            <h2 class="text-sm md:text-base font-bold text-gray-700 leading-tight">Valliyappan</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="py-4">
         <p class="text-2xl text-center text-blue-900 md:text-3xl mt-4 mb-5" style="font-family: 'Poppins', sans-serif; font-weight: 700;">Association Partners</p>
@@ -354,14 +357,14 @@
         var i;
 
         for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-            content.style.display = "none";
-            } else {
-            content.style.display = "block";
-            }
-        });
+            coll[i].addEventListener("click", function() {
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
         }
     </script>
 

@@ -1,8 +1,9 @@
+from email.policy import default
 from os import urandom
 from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from hashlib import sha1
-import re
+from validate_email_address import validate_email
 
 from datetime import datetime
 app = Flask(__name__)
@@ -24,6 +25,7 @@ class Register(db.Model):
     qualification=db.Column(db.String, nullable=False)
     date=db.Column(db.DateTime, default=datetime.utcnow)
     remark=db.Column(db.String, nullable=False, default="")
+    phoneVerified=db.Column(db.Boolean, nullable=False, default=False)
 
 class User(db.Model):
     __tablename__="users"
@@ -40,25 +42,23 @@ def register():
         phone=request.form['phone']
         city=request.form['city']
         qualification=request.form['qualification']
+        if name.strip()=="" or email.strip()=="" or email.strip()=="" or city.strip()=="" or qualification=="":
+            return render_template("home.html", "All fields are required!")
+        if not bool(Register.query.filter_by(email=email).first()):
+            return render_template('home.html', error="Email address is already used.")
         new_student = Register(name = name, email = email, phone = phone, city=city, qualification=qualification)
-        if(email==re.search("(([a-zA-Z1-9])|(\\.[a-zA-Z1-9]))*@[a-z]*\\.[a-z]{2,4}", email).group()):
-            if(phone.isdigit()):
-                if(int(phone)>6000000000 and int(phone)<10000000000):
-                    try:
-                        db.session.add(new_student)
-                        db.session.commit()
-                        return redirect('/registered')
-                    except Exception as err:
-                        return redirect('/error/{}'.format(str(err)))
-                else:
-                    message='error/Enter%20valid%20phone%20number%20(10%20digits%20number)'
-                    return redirect(message)
+        if validate_email(email, verify=True):
+            if phone.isdigit() and len(phone)==10:
+                try:
+                    db.session.add(new_student)
+                    db.session.commit()
+                    return redirect('/registered')
+                except Exception as err:
+                    return redirect('/error/{}'.format(str(err)))
             else:
-                message='error/Enter%20valid%20phone%20number%20(10%20digits%20number)'
-                return redirect(message)
+                return render_template('home.html', error="Not a valid phone number. Must have only 10 digits!")
         else:
-            message='/error/Email%20ID%20is%20invalid'
-            return redirect('Email ID is invalid')
+            return render_template('home.html', error="Invalid email address.")
     return render_template('home.html')
 
 @app.route('/dashboard/login', methods=["GET", "POST"])
