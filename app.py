@@ -3,10 +3,16 @@ from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from hashlib import sha1
 from validate_email_address import validate_email
-
 from datetime import datetime
+import random
+
+import whatsappInteraction
+
 app = Flask(__name__)
 app.secret_key=urandom(50)
+
+OTP_LENGTH=4
+PHONE_VERIFICATION_TRAILS=3
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///registeredStudents.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -51,7 +57,10 @@ def register():
                 try:
                     db.session.add(new_student)
                     db.session.commit()
-                    return redirect('/registered')
+                    session['registrationId']=new_student.id
+                    session['phoneNum']=phone
+                    session['phoneVerificationTrials']=0
+                    return redirect('/whatsappVerification')
                 except Exception as err:
                     return redirect('/error/{}'.format(str(err)))
             else:
@@ -59,6 +68,37 @@ def register():
         else:
             return render_template('home.html', error="Invalid email address.")
     return render_template('home.html')
+
+@app.route("/whatsappVerification", methods=["GET", "POST"])
+def whatsappVerification():
+    def generateOTP():
+        otp=""
+        for x in range(OTP_LENGTH):
+            otp+=str(random.randint(0,9))
+        return otp
+    if session.get('phoneNum')==None:
+        return redirect('/')
+    if request.method=="POST":
+        if session.get("verificationCode")==None:
+            return redirect('/')
+        if session['phoneVerificationTrails']>=PHONE_VERIFICATION_TRAILS:
+            session.clear()
+            return redirect('/error/Phone%20number%20verification%20failed.%20All%20trails%20used!')
+        verificationCode=str(request.form['verificationCode'])
+        if verificationCode==session['verificationCode'].strip():
+            registration=Register.query.get(session['registrationId'])
+            registration.phoneVerified=True
+            db.session.commit()
+            session.clear()
+            return redirect('/registered')
+        else:
+            session['phoneVerificationTrails']+=1
+            return render_template('whatsappVerification.html', phoneNum=session['phoneNum'], trys=session['phoneVerificationTrails'], totalTrails=PHONE_VERIFICATION_TRAILS)
+    if session.get('verificationCode')==None:
+        session['verificationCode']=generateOTP()
+        whatsappInteraction.queue.append((session['phoneNum'], session['verificationCode']))
+        session['phoneVerificationTrails']=1
+    return render_template('whatsappVerification.html', phoneNum=session['phoneNum'], trys=session['phoneVerificationTrails'], totalTrails=PHONE_VERIFICATION_TRAILS)
 
 @app.route('/dashboard/login', methods=["GET", "POST"])
 def dashboard_login():
