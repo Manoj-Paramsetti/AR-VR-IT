@@ -51,38 +51,42 @@
             display: none;
             overflow: hidden;
         }
-
-        .name{
+        
+        .name {
             padding-left: 40px;
             background: url("/static/images/name.svg") no-repeat left;
             background-position: 10px;
             background-size: 20px;
         }
-
-        .email{
+        
+        .email {
             padding-left: 40px;
             background: url("/static/images/mail.svg") no-repeat left;
             background-position: 10px;
             background-size: 20px;
         }
-        .phone{
+        
+        .phone {
             padding-left: 40px;
             background: url("/static/images/phone.svg") no-repeat left;
             background-position: 10px;
             background-size: 20px;
         }
-        .city{
+        
+        .city {
             padding-left: 40px;
             background: url("/static/images/city.svg") no-repeat left;
             background-position: 10px;
             background-size: 20px;
         }
-        .qualification{
+        
+        .qualification {
             padding-left: 40px;
             background: url("/static/images/qualification.svg") no-repeat left;
             background-position: 10px;
             background-size: 20px;
         }
+        
         @media screen and (min-width: 1024px) {
             .form {
                 position: absolute;
@@ -105,6 +109,7 @@
             background-image: radial-gradient(#5a67d8 2px, transparent 2px);
             background-size: 16px 16px;
         }
+        
         .grid-white {
             background-image: radial-gradient(#FFF 2px, transparent 2px);
             background-size: 16px 16px;
@@ -113,6 +118,7 @@
 </head>
 
 <body>
+    <img src="/static/images/bg.jpg" class="backgroundImage">
     <nav class="flex flex-row justify-center space-x-[30px] sm:space-x-[150px] md:space-x-[250px] lg:space-x-[350px] xl:space-x-[450px] glassbg">
         <div style="font-family: 'Poppins', sans-serif; font-weight: 700;" class="my-auto text-slate-900 text-center font-bold text-xl poppins">
             <img class="w-[280px] md:w-[350px]" src="/static/images/sistLogo.png">
@@ -143,8 +149,8 @@
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 Whatsapp Number
             </label>
-            <input class="phone mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block w-lg rounded-sm focus:ring-1" type="number" name="phone" min="6000000000" max="9999999999"
-                required>
+            <input class="phone mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block w-lg rounded-sm focus:ring-1" type="number" name="phone" min="6000000000"
+                max="9999999999" required>
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 City
             </label>
@@ -272,12 +278,12 @@
             <br>
             <div style="text-align:center">
                 <span class="dot" onclick="stopExistingSlideshow(); slideIndex=0; showSlides();"></span>
-                <span class="dot" onclick="stopExistingSlideshow(); slideIndex=1; showSlides();"></span>
-                <span class="dot" onclick="stopExistingSlideshow(); slideIndex=2; showSlides();"></span>
-                <span class="dot" onclick="stopExistingSlideshow(); slideIndex=3; showSlides();"></span>
-                <span class="dot" onclick="stopExistingSlideshow(); slideIndex=4; showSlides();"></span>
-            </div>
-        </div>
+    <span class="dot" onclick="stopExistingSlideshow(); slideIndex=1; showSlides();"></span>
+    <span class="dot" onclick="stopExistingSlideshow(); slideIndex=2; showSlides();"></span>
+    <span class="dot" onclick="stopExistingSlideshow(); slideIndex=3; showSlides();"></span>
+    <span class="dot" onclick="stopExistingSlideshow(); slideIndex=4; showSlides();"></span>
+    </div>
+    </div>
     </span>
     <br>
     <br>
