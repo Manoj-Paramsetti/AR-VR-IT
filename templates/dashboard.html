@@ -102,7 +102,7 @@
     function saveRemark(id) {
         fetch("/dashboard/entry/modify/report/" + id, {
             method: 'POST',
-            body: document.getElementById("remark" + id).innerText
+            body: document.getElementById("remark" + id).value
         }).then(response => response.json()).then(res => {
             document.getElementById("message").innerText = res.message;
             if (res.type == "error") {

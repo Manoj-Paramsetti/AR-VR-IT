@@ -136,7 +136,7 @@ def dashboard_delete_entry(id: int):
 def dashboard_modify_report(id: int):
     if session.get("appsecret")!=app.secret_key:
         return redirect('/dashboard/login')
-    remark=request.data
+    remark=request.get_data().decode()
     try:
         registration=Register.query.get(id)
         registration.remark=remark
