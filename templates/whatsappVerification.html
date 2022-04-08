@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="stylesheet" href="/static/styles/main.css">
     <title>Whatsapp Number Verification | AR/VR Course | Sathyabama Institute of Science and Technology</title>
 </head>
 
 <body>
+    <img src="/static/images/bg.jpg" class="backgroundImage">
     <div class="flex h-screen mx-3">
         <div class="w-[440px] h-min text-lg border shadow-lg my-auto text-center p-4 rounded-md mx-auto">
             <p class="text-2xl mt-5 text-green-500 text-center py-5" style="font-family: 'Poppins', sans-serif; font-weight: 600;">WhatsApp Verification</p>
             <p>We have sent an OTP to your WhatsApp number {{phoneNum}}. Please enter the received OTP here!</p>
             <br>
             <form method="POST">
-                <input class="mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block rounded-sm focus:ring-1"
-                type="number" name="verificationCode" required>
-                <button class="mt-2 flex-shrink-0 bg-green-500 hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring focus:ring-green-300 rounded w-full py-2 text-lg font-bold text-white"
-                type="submit">Submit</button>
+                <input class="mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-blue-500 block rounded-sm focus:ring-1" type="number" name="verificationCode" required>
+                <button class="mt-2 flex-shrink-0 bg-green-500 hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring focus:ring-green-300 rounded w-full py-2 text-lg font-bold text-white" type="submit">Submit</button>
             </form>
             <br> You have {{totalTrails-trys}} trials left!
         </div>

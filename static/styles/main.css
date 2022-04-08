@@ -65,7 +65,6 @@ li {
 
 .glassbg {
     background-color: rgba(255, 255, 255, .4) !important;
-    backdrop-filter: blur(20%) !important;
 }
 
 .dot {
