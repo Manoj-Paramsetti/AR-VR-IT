@@ -7,8 +7,6 @@ from datetime import datetime
 import random
 import smokesignal
 
-import whatsappInteraction
-
 app = Flask(__name__)
 app.secret_key=urandom(50)
 
@@ -230,6 +228,8 @@ def logToDatabase(type_, title, content):
         print(err)
 
 # Logging Ends
+
+import whatsappInteraction
 
 if __name__=="__main__":
     smokesignal.emit('log','INFO', 'Server Started', '')
