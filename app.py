@@ -5,6 +5,7 @@ from hashlib import sha1
 from validate_email_address import validate_email
 from datetime import datetime
 import random
+import smokesignal
 
 import whatsappInteraction
 
@@ -28,7 +29,7 @@ class Register(db.Model):
     phone=db.Column(db.Integer, nullable=False)
     city=db.Column(db.String, nullable=False)
     qualification=db.Column(db.String, nullable=False)
-    date=db.Column(db.DateTime, default=datetime.utcnow)
+    date=db.Column(db.DateTime, default=datetime.now)
     remark=db.Column(db.String, nullable=False, default="")
     phoneVerified=db.Column(db.Boolean, nullable=False, default=False)
 
@@ -38,6 +39,15 @@ class User(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     username=db.Column(db.String, nullable=False, unique=True)
     password_hash=db.Column(db.String, nullable=False)
+
+class Log(db.Model):
+    __tablename__="logs"
+
+    id=db.Column(db.Integer, primary_key=True)
+    logtype=db.Column(db.String, nullable=False)
+    datetime=db.Column(db.DateTime, default=datetime.now)
+    title=db.Column(db.String, nullable=False)
+    content=db.Column(db.String, nullable=False)
 
 @app.route('/', methods=['GET', 'POST'])
 def register():
@@ -62,6 +72,7 @@ def register():
                     session['phoneVerificationTrials']=0
                     return redirect('/whatsappVerification')
                 except Exception as err:
+                    smokesignal.emit('log', 'ERROR', 'Exception on registration', "Message: {}\nContext: Registration ID: {}".format(str(err), new_student.id))
                     return redirect('/error/{}'.format(str(err)))
             else:
                 return render_template('home.html', error="Not a valid phone number. Must have only 10 digits!")
@@ -183,7 +194,16 @@ def dashboard_modify_report(id: int):
         db.session.commit()
         return {"message": "Remark updated successfully for ID {}.".format(id), "type": "info"}
     except Exception as err:
+        smokesignal.emit('log','ERROR', 'Could not update Remark', 'Error: {}\nContext: Registration ID: {}'.format(str(err), id))
         return {"message": str(err), "type": "error"}
+
+@app.route('/dashboard/logs')
+def showLogs():
+    if session.get("appsecret")!=app.secret_key:
+        return redirect('/dashboard/login')
+    datas=Log.query.group_by(Log.datetime)
+    datas=datas[::-1]
+    return render_template('logs.html', datas=datas)
 
 @app.route('/logout')
 def logout():
@@ -198,7 +218,21 @@ def registered():
 def error(message: str):
     return render_template('error.html', message=message)
 
+# Logging
+
+@smokesignal.on('log')
+def logToDatabase(type_, title, content):
+    logItem=Log(logtype=type_, title=title, content=content)
+    try:
+        db.session.add(logItem)
+        db.session.commit()
+    except Exception as err:
+        print(err)
+
+# Logging Ends
+
 if __name__=="__main__":
+    smokesignal.emit('log','INFO', 'Server Started', '')
     app.run(debug=True)
 
 # https://executive-ed.xpro.mit.edu/virtual-reality-augmented-reality

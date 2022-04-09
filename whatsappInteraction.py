@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from os import environ
 from threading import Thread
+import smokesignal
 
 queue=[]
 
@@ -48,9 +49,11 @@ def otpSenderLoop():
                 driver.close()
                 queue.pop(0)
             except Exception as err:
-                print(err)
+                smokesignal.emit('log', 'ERROR', 'Could not send OTP', 'Error: {}\nContext: Phone Number, OTP tuple: {}'.format(str(err), queue[0]))
+                queue.pop(0)
         time.sleep(2)
 
 otpSenderThread=Thread(target=otpSenderLoop)
 otpSenderThread.name="OTP Sender Thread"
+smokesignal.emit('log', 'INFO', 'WhatsApp Sender Thread Started', '')
 otpSenderThread.start()
