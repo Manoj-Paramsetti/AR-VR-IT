@@ -25,6 +25,15 @@
     <div class="flex justify-center my-10">
         <p class="font-bold text-red-500 text-2xl">{{message}}</p>
     </div>
+    <div class="flex justify-center my-10">
+        <p class="font-bold text-slate-900 text-center mx-3 text-md md:text-xl">You will be redirected to home after 30 seconds</p>
+    </div>
+    <div class="flex justify-center my-10">
+        <button class="mt-2 bg-red-500 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 rounded mx-auto px-2 py-2 text-lg font-bold text-white" onclick="window.location.href='/'">Back to Home</button>
+    </div>
+    <script> 
+        setTimeout("window.location.href='/'",30000) 
+    </script>
 </body>
 
 </html>
