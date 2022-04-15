@@ -12,6 +12,8 @@ import json
 app = Flask(__name__)
 app.secret_key=urandom(50)
 
+sessions={}
+
 OTP_LENGTH=4
 PHONE_VERIFICATION_TRAILS=3
 
@@ -60,6 +62,20 @@ class Log(db.Model):
     datetime=db.Column(db.DateTime, default=datetime.now)
     title=db.Column(db.String, nullable=False)
     content=db.Column(db.String, nullable=False)
+
+def newSession(user):
+    global sessions
+    random_string = ''
+    random_str_seq = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    uuid_format = [8, 4, 4, 4, 12]
+    for n in uuid_format:
+        for i in range(0,n):
+            random_string += str(random_str_seq[random.randint(0, len(random_str_seq) - 1)])
+        if n != 12:
+            random_string += '-'
+    sessions[random_string]={'userid': user.id, 'username': user.username, 'start': datetime.now()}
+    smokesignal.emit('log','INFO', 'User login to dashboard', 'Context: User ID: {}, Username: {}'.format(user.id, user.username))
+    return random_string
 
 @app.route('/', methods=['GET', 'POST'])
 def register():
@@ -166,7 +182,7 @@ def dashboard_login():
         if user.password_hash==sha1(passwd.encode()).hexdigest():
             session['user']=user.username
             session['userid']=user.id
-            session['appsecret']=app.secret_key
+            session['appsecret']=newSession(user)
             return redirect('/dashboard')
         else:
             return render_template("dash_login.html", error="Invalid Credentials")
@@ -178,7 +194,7 @@ def dashboard_login():
 
 @app.route('/dashboard')
 def dashboard():
-    if session.get("appsecret")!=app.secret_key:
+    if session.get("appsecret") not in sessions:
         return redirect('/dashboard/login')
     datas=Register.query.order_by(Register.date)
     hitcount=PageHit.query.with_entities(func.sum(PageHit.hitCount).label('total')).first().total
@@ -186,7 +202,7 @@ def dashboard():
 
 @app.route('/dashboard/export/csv/registrations')
 def export_registrations_as_csv():
-    if session.get("appsecret")!=app.secret_key:
+    if session.get("appsecret") not in sessions:
         return redirect('/dashboard/login')
     datas=Register.query.order_by(Register.date)
     content="ID,Name,Email,Phone,City,Qualification,Date,Remark,WhatsApp Verification Status"
@@ -199,7 +215,7 @@ def export_registrations_as_csv():
 
 @app.route('/dashboard/export/csv/analytics')
 def export_analytics_as_csv():
-    if session.get("appsecret")!=app.secret_key:
+    if session.get("appsecret") not in sessions:
         return redirect('/dashboard/login')
     datas=PageHit.query.order_by(PageHit.lastAccess)
     content="ID,IP Address,Last Access,Location,Time Zone,Browser,Operating System,Hit Count"
@@ -212,7 +228,7 @@ def export_analytics_as_csv():
 
 @app.route('/dashboard/export/csv/logs')
 def export_logs_as_csv():
-    if session.get("appsecret")!=app.secret_key:
+    if session.get("appsecret") not in sessions:
         return redirect('/dashboard/login')
     datas=Log.query.order_by(Log.datetime)
     content="ID,Log Type,Datetime,Title,Content"
@@ -225,7 +241,7 @@ def export_logs_as_csv():
 
 @app.route("/dashboard/users/new", methods=['POST', 'GET'])
 def dashboard_new_user():
-    if session.get("appsecret")!=app.secret_key:
+    if session.get("appsecret") not in sessions:
         return redirect('/dashboard/login')
     if request.method=='POST':
         username=request.form['username']
@@ -250,14 +266,14 @@ def dashboard_new_user():
 
 @app.route('/dashboard/users')
 def dashboard_view_all_users():
-    if session.get("appsecret")!=app.secret_key:
+    if session.get("appsecret") not in sessions:
         return redirect('/dashboard/login')
     users=User.query.order_by(User.id)
     return render_template("allusers.html", users=users)
 
 @app.route("/dashboard/entry/delete/<id>", methods=["POST"])
 def dashboard_delete_entry(id: int):
-    if session.get("appsecret")!=app.secret_key:
+    if session.get("appsecret") not in sessions:
         return redirect('/dashboard/login')
     entry=Register.query.get(id)
     if entry==None:
@@ -269,7 +285,7 @@ def dashboard_delete_entry(id: int):
 
 @app.route("/dashboard/entry/modify/report/<id>", methods=['POST'])
 def dashboard_modify_report(id: int):
-    if session.get("appsecret")!=app.secret_key:
+    if session.get("appsecret") not in sessions:
         return redirect('/dashboard/login')
     remark=request.get_data().decode()
     try:
@@ -283,7 +299,7 @@ def dashboard_modify_report(id: int):
 
 @app.route('/dashboard/logs')
 def showLogs():
-    if session.get("appsecret")!=app.secret_key:
+    if session.get("appsecret") not in sessions:
         return redirect('/dashboard/login')
     datas=Log.query.group_by(Log.datetime)
     datas=datas[::-1]
@@ -291,7 +307,7 @@ def showLogs():
 
 @app.route('/dashboard/analytics')
 def analytics():
-    if session.get("appsecret")!=app.secret_key:
+    if session.get("appsecret") not in sessions:
         return redirect("/dashboard/login")
     datas=PageHit.query.group_by(PageHit.lastAccess)
     datas=datas[::-1]
@@ -299,6 +315,12 @@ def analytics():
 
 @app.route('/logout')
 def logout():
+    try:
+        userid=sessions.get(session.get('appsecret')).get("userid")
+        username=sessions.get(session.get('appsecret')).get("username")
+        smokesignal.emit('log','INFO', 'User Logout', 'Context: User ID: {}, Username: {}'.format(userid, username))
+    except Exception as err:
+        smokesignal.emit('log','ERROR', 'Logout Failed', '{}\nContext: Session keys: {}'.format(str(err), str(session.items())))
     session.clear()
     return redirect('/dashboard/login')
 
