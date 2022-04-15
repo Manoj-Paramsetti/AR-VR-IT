@@ -1,5 +1,5 @@
 from os import urandom
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from hashlib import sha1
@@ -183,6 +183,45 @@ def dashboard():
     datas=Register.query.order_by(Register.date)
     hitcount=PageHit.query.with_entities(func.sum(PageHit.hitCount).label('total')).first().total
     return render_template('dashboard.html', datas=datas, hitcount=hitcount)
+
+@app.route('/dashboard/export/csv/registrations')
+def export_registrations_as_csv():
+    if session.get("appsecret")!=app.secret_key:
+        return redirect('/dashboard/login')
+    datas=Register.query.order_by(Register.date)
+    content="ID,Name,Email,Phone,City,Qualification,Date,Remark,WhatsApp Verification Status"
+    for data in datas:
+        content+="\n"
+        content+="{},{},{},{},{},{},{},{},{}".format(data.id, data.name.replace(',', ''), data.email.replace(",", ''), data.phone, data.city.replace(",", ''), data.qualification.replace(",", ''), data.date.strftime("%d-%m-%Y %H:%M:%S"), data.remark.replace(",", "").replace("\n", '; '), (lambda x: "Verified" if x else "Not Verified")(data.phoneVerified))
+    resp=make_response(content, 200)
+    resp.mimetype="text/plain"
+    return resp
+
+@app.route('/dashboard/export/csv/analytics')
+def export_analytics_as_csv():
+    if session.get("appsecret")!=app.secret_key:
+        return redirect('/dashboard/login')
+    datas=PageHit.query.order_by(PageHit.lastAccess)
+    content="ID,IP Address,Last Access,Location,Time Zone,Browser,Operating System,Hit Count"
+    for data in datas:
+        content+="\n"
+        content+="{},{},{},{},{},{},{},{}".format(data.id, data.ip.replace(',', ''), data.lastAccess.strftime("%d-%m-%Y %H:%M:%S"), data.location.replace(",", ""), data.timezone.replace(",", ''), data.browser.replace(",", ''), data.os.replace(",", ''), data.hitCount)
+    resp=make_response(content, 200)
+    resp.mimetype="text/plain"
+    return resp
+
+@app.route('/dashboard/export/csv/logs')
+def export_logs_as_csv():
+    if session.get("appsecret")!=app.secret_key:
+        return redirect('/dashboard/login')
+    datas=Log.query.order_by(Log.datetime)
+    content="ID,Log Type,Datetime,Title,Content"
+    for data in datas:
+        content+="\n"
+        content+="{},{},{},{},{}".format(data.id, data.logtype.replace(',', ''), data.datetime.strftime("%d-%m-%Y %H:%M:%S"), data.title.replace(",", ""), data.content.replace(",", '').replace("\n","; "))
+    resp=make_response(content, 200)
+    resp.mimetype="text/plain"
+    return resp
 
 @app.route("/dashboard/users/new", methods=['POST', 'GET'])
 def dashboard_new_user():
