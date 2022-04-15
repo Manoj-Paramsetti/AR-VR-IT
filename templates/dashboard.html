@@ -35,6 +35,17 @@
         </div>
     </div>
     <br/>
+    <div class="flex">
+        <div class="mx-auto">
+            <p class="text-xl font-bold text-center">{{hitcount}}</p>
+            <p class="text-l font-bold text-center">Page Hits</p>
+        </div>
+        <button onclick='window.location.href="/dashboard/analytics"' class="my-1 
+            bg-green-500 hover:bg-green-600
+            active:bg-green-700 focus:outline-none 
+            focus:ring focus:ring-green-300 
+            rounded px-5 py-1 text-lg font-bold text-white mr-5">View Analytics</button>
+    </div>
     <br/>
     <p class="text-2xl font-bold text-center underline underline-offset-4">Registered Students Details</p>
     <p class="text-lg font-bold text-center text-red-500 font-bold mt-3" id="message"></p>
@@ -81,14 +92,14 @@
                 </center>
                 <td class="border border-slate-300 px-2 py-1">
                     <textarea id="remark{{data.id}}">{{data.remark}}</textarea><br>
-                    <button onclick='saveRemark({{data.id}})' class="my-1 
+                    <button onclick='saveRemark({{data.id}}) ' class="my-1 
                         bg-green-500 hover:bg-green-600 
                         active:bg-green-700 focus:outline-none 
                         focus:ring focus:ring-green-300 
                         rounded  px-5 py-1 text-lg font-bold text-white">Save Report</button>
                 </td>
                 <td class="border border-slate-300 px-2 py-1">
-                    <button onclick=' deleteRegistration({{data.id}})' class="my-1 
+                    <button onclick=' deleteRegistration({{data.id}}) ' class="my-1 
                     bg-red-500 hover:bg-red-600 
                     active:bg-red-700 focus:outline-none 
                     focus:ring focus:ring-red-300 
@@ -100,7 +111,7 @@
     </table>
     <br><br>
     <center>
-        <button onclick='document.location="/dashboard/logs"' class="my-1 
+        <button onclick='document.location="/dashboard/logs" ' class="my-1 
         bg-green-500 hover:bg-green-600 
         active:bg-green-700 focus:outline-none 
         focus:ring focus:ring-green-300 
@@ -112,7 +123,7 @@
 <script>
     function deleteRegistration(id) {
         fetch("/dashboard/entry/delete/" + id, {
-            method: 'POST'
+            method: 'POST '
         }).then(response => response.json()).then(res => {
             document.getElementById("message").innerText = res.message;
             if (res.type == "error") {
@@ -126,7 +137,7 @@
 
     function saveRemark(id) {
         fetch("/dashboard/entry/modify/report/" + id, {
-            method: 'POST',
+            method: 'POST ',
             body: document.getElementById("remark" + id).value
         }).then(response => response.json()).then(res => {
             document.getElementById("message").innerText = res.message;

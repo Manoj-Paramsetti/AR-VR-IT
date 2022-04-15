@@ -146,7 +146,7 @@
     </nav>
     <div class="flex mx-auto flex-col mb-10 flex h-92 lg:mx-auto sm:px-20 lg:flex-row px-5">
         <div class="container my-20 mx-auto lg:mx-10">
-            <h1 class="text-4xl max-w-[700px] font-bold" style="font-family: 'Montserrat', sans-serif; font-weight: 700;">Certification Programme in Augumented Reality & Virtual Reality</h1>
+            <h1 class="text-4xl max-w-[700px] font-bold" style="font-family: 'Montserrat', sans-serif; font-weight: 700;">Certification Programme in Augmented Reality & Virtual Reality</h1>
             <h2 class="text-slate-700 mt-3 mx-auto lg:mx-0 max-w-[1250px] text-justify" style="font-family: 'Poppins', sans-serif; font-weight: 500;">
                 Augmented Reality and Virtual Reality (AR/VR) are immersive technologies that enable users to experience digitally rendered content in both physical & virtual spaces and offer the notable potential for EduTech Innovation. This course is offered by Sathyabama
                 Institute of Science and Technology (School of Computing, Department of IT) in collaboration with Scopik EduTech Pvt. Ltd
@@ -342,7 +342,7 @@
                 <div class="absolute top-0 left-0 z-10 grid-indigo w-16 h-16 md:w-40 md:h-40 md:ml-20 md:mt-24"></div>
 
                 <div class="relative text-2xl md:text-5xl py-2 px-6 md:py-6 md:px-1 md:w-64 md:mx-auto text-indigo-100 font-semibold leading-tight tracking-tight mb-0 z-20">
-                    <span class="md:block">Testimonial</span>
+                    <span class="md:block">Testimonials</span>
                 </div>
 
                 <div class="absolute right-0 bottom-0 mr-4 mb-4 hidden md:block">
@@ -414,6 +414,64 @@
         </div>
     </div>
     <br>
+
+    <script>
+        function detectBrowser() {
+            if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
+                return 'Opera';
+            } else if (navigator.userAgent.indexOf("Chrome") != -1) {
+                return 'Chrome';
+            } else if (navigator.userAgent.indexOf("Safari") != -1) {
+                return 'Safari';
+            } else if (navigator.userAgent.indexOf("Firefox") != -1) {
+                return 'Firefox';
+            } else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) {
+                return 'IE';
+            } else {
+                return 'Unknown';
+            }
+        }
+        fetch("https://ipapi.co/json/", {
+            headers: {
+                'User-Agent': 'python-requests/2.25.1',
+                'Accept-Encoding': 'gzip, deflate',
+                'Accept': '*/*',
+                'Connection': 'keep-alive'
+            }
+        }).then(response => response.json()).then(data => {
+            fetch("/addNewHit", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ip: data.ip,
+                    location: data.region + ", " + data.country_name,
+                    timezone: data.timezone,
+                    browser: detectBrowser(),
+                    os: window.navigator.platform
+                })
+            })
+        }).catch(
+            (error) => {
+                fetch("https://api.ipify.org/?format=json").then(response => response.json()).then(data => {
+                    fetch("/addNewHit", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            ip: data.ip,
+                            location: "Unknown",
+                            timezone: "Unknown",
+                            browser: detectBrowser(),
+                            os: window.navigator.platform
+                        })
+                    })
+                })
+            })
+    </script>
+
     <script>
         let slideIndex = 0;
         var timeouts = [];

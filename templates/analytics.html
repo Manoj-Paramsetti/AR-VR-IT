@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Analytics</title>
+</head>
+
+<body>
+    <img src="/static/images/bg.jpg" class="backgroundImage">
+    <img src="https://sathyabama.cognibot.in/pluginfile.php/1/theme_klass/logo/1636949046/logo.svg" class="mx-auto" style="filter: invert(100%)" width="350px" />
+    <br/>
+    <br/>
+    <div class="flex">
+        <div class="mx-auto">
+            <button onclick='window.location.href="/dashboard"' class="my-1 
+            bg-red-500 hover:bg-red-600 mx-auto
+            active:bg-red-700 focus:outline-none
+            focus:ring focus:ring-red-300 
+            rounded px-5 py-1 text-lg font-bold text-white mr-5">Return to Dashboard</button>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <p class="text-2xl font-bold text-center underline underline-offset-4">Analytics</p>
+    <p class="text-lg font-bold text-center text-red-500 font-bold mt-3" id="message"></p>
+    <br/>
+    <table class="table-auto mx-auto border-collapse border border-slate-400 glassbg" style="max-width: 80%;">
+        <thead>
+            <tr>
+                <th class="border border-slate-300 px-2 py-1">ID</th>
+                <th class="border border-slate-300 px-2 py-1">IP</th>
+                <th class="border border-slate-300 px-2 py-1">Last Access</th>
+                <th class="border border-slate-300 px-2 py-1">Location</th>
+                <th class="border border-slate-300 px-2 py-1">Time Zone</th>
+                <th class="border border-slate-300 px-2 py-1">Browser</th>
+                <th class="border border-slate-300 px-2 py-1">OS</th>
+                <th class="border border-slate-300 px-2 py-1">Hit Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in datas %}
+            <tr id="trid{{data.id}}">
+                <td class="border border-slate-300 px-2 py-1">{{ data.id }}</td>
+                <td class="border border-slate-300 px-2 py-1">{{ data.ip }}</td>
+                <td class="border border-slate-300 px-2 py-1">{{ (data.lastAccess).strftime("%d-%m-%Y %H:%M:%S") }}</td>
+                <td class="border border-slate-300 px-2 py-1">{{ data.location }}</td>
+                <td class="border border-slate-300 px-2 py-1">{{ data.timezone }}</td>
+                <td class="border border-slate-300 px-2 py-1">{{ data.browser }}</td>
+                <td class="border border-slate-300 px-2 py-1">{{ data.os }}</td>
+                <td class="border border-slate-300 px-2 py-1">{{ data.hitCount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</body>
+
+</html>

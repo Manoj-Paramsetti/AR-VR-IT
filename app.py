@@ -1,11 +1,13 @@
 from os import urandom
 from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 from hashlib import sha1
 from validate_email_address import validate_email
 from datetime import datetime
 import random
 import smokesignal
+import json
 
 app = Flask(__name__)
 app.secret_key=urandom(50)
@@ -37,6 +39,18 @@ class User(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     username=db.Column(db.String, nullable=False, unique=True)
     password_hash=db.Column(db.String, nullable=False)
+
+class PageHit(db.Model):
+    __tablename__="pagehits"
+
+    id=db.Column(db.Integer, primary_key=True)
+    ip=db.Column(db.String, nullable=False)
+    lastAccess=db.Column(db.DateTime, default=datetime.now)
+    location=db.Column(db.String, nullable=False)
+    timezone=db.Column(db.String, nullable=False)
+    browser=db.Column(db.String, nullable=False)
+    os=db.Column(db.String, nullable=False)
+    hitCount=db.Column(db.Integer, nullable=False)
 
 class Log(db.Model):
     __tablename__="logs"
@@ -77,6 +91,37 @@ def register():
         else:
             return render_template('home.html', error="Invalid email address.")
     return render_template('home.html')
+
+@app.route("/addNewHit", methods=["POST"])
+def addNewHit():
+    data=request.get_data()
+    data=json.loads(data.decode())
+    ip=data.get('ip')
+    browser=data.get('browser')
+    location=data.get('location')
+    timezone=data.get('timezone')
+    os=data.get('os')
+    try:
+        if PageHit.query.filter_by(ip=ip.strip()).first()==None:
+            hit=PageHit(ip=ip, location=location, timezone=timezone, browser=browser, os=os, hitCount=1)
+            db.session.add(hit)
+            db.session.commit()
+        else:
+            hit=PageHit.query.filter_by(ip=ip.strip()).first()
+            hit.lastAccess=datetime.now()
+            if browser!="Unknown":
+                hit.browser=browser
+            if location!="Unknown":
+                hit.location=location
+            if timezone!="Unknown":
+                hit.timezone=timezone
+            hit.os=os
+            hit.hitCount+=1
+            db.session.commit()
+        return {"message": "Hit registered successfully!", "type": "success"}
+    except Exception as err:
+        smokesignal.emit('log','ERROR', 'Could not log page hit.', 'Error: {}\nContext: IP: {}, Browser: {}, OS: {}'.format(str(err), ip, browser, os))
+        return {"message": "Could not register hit.", "type": "error"}
 
 @app.route("/whatsappVerification", methods=["GET", "POST"])
 def whatsappVerification():
@@ -136,7 +181,8 @@ def dashboard():
     if session.get("appsecret")!=app.secret_key:
         return redirect('/dashboard/login')
     datas=Register.query.order_by(Register.date)
-    return render_template('dashboard.html', datas=datas)
+    hitcount=PageHit.query.with_entities(func.sum(PageHit.hitCount).label('total')).first().total
+    return render_template('dashboard.html', datas=datas, hitcount=hitcount)
 
 @app.route("/dashboard/users/new", methods=['POST', 'GET'])
 def dashboard_new_user():
@@ -158,6 +204,7 @@ def dashboard_new_user():
             db.session.add(user)
             db.session.commit()
         except Exception as err:
+            smokesignal.emit('log','ERROR', 'Could not add new dashboard user', 'Error: {}\nContext: username: {}'.format(str(err), username))
             return render_template("newuser.html", error=str(err))
         return render_template('newuser.html', message="User {} created successfully!".format(username))
     return render_template('newuser.html', message=None)
@@ -202,6 +249,14 @@ def showLogs():
     datas=Log.query.group_by(Log.datetime)
     datas=datas[::-1]
     return render_template('logs.html', datas=datas)
+
+@app.route('/dashboard/analytics')
+def analytics():
+    if session.get("appsecret")!=app.secret_key:
+        return redirect("/dashboard/login")
+    datas=PageHit.query.group_by(PageHit.lastAccess)
+    datas=datas[::-1]
+    return render_template('analytics.html', datas=datas)
 
 @app.route('/logout')
 def logout():
