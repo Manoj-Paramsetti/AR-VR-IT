@@ -315,10 +315,13 @@ def analytics():
 
 @app.route('/logout')
 def logout():
+    global sessions
     try:
         userid=sessions.get(session.get('appsecret')).get("userid")
         username=sessions.get(session.get('appsecret')).get("username")
-        smokesignal.emit('log','INFO', 'User Logout', 'Context: User ID: {}, Username: {}'.format(userid, username))
+        sessionstart=sessions.get(session.get('appsecret')).get("start")
+        sessions.pop(session.get('appsecret'))
+        smokesignal.emit('log','INFO', 'User Logout', 'Context: User ID: {}, Username: {}, Session Duration: {}'.format(userid, username, (lambda x: "{} Days {} Hours {} Minutes {} Seconds".format(x.days, (x.seconds//3600), ((x.seconds//60)%60), (x.microseconds/1e6)))(datetime.now()-sessionstart)))
     except Exception as err:
         smokesignal.emit('log','ERROR', 'Logout Failed', '{}\nContext: Session keys: {}'.format(str(err), str(session.items())))
     session.clear()
