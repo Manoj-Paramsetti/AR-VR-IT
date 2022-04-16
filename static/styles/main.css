@@ -7,25 +7,24 @@
 
 body::-webkit-scrollbar {
     width: 10px;
-    border-left: 1px ridge #c8f2fe;
+    border-left: 1px ridge #DDD;
 }
 
 body::-webkit-scrollbar-track {
-    background: #c8f2fe;
+    background: #EEE;
 }
 
 body::-webkit-scrollbar-thumb {
-    background: #3b82f6;
-    border-radius: 5px;
+    background: #831238;
 }
 
 body::-webkit-scrollbar-thumb:hover {
-    background: #4b7cca;
+    background: #831238;
 }
 
 * {
     scrollbar-width: auto;
-    scrollbar-color: #3b82f6 #c8f2fe;
+    scrollbar-color: #831238 #EEE;
 }
 
 
