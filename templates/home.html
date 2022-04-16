@@ -36,6 +36,10 @@
             display: none;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+
         .dot {
             height: 15px;
             width: 15px;
@@ -155,7 +159,13 @@
             <img class="my-auto form-reverse w-[100px] md:w-[160px]" src="/static/images/scopik.png">
         </div>
     </nav>
-
+    <div class="fixed bottom-0 text-white rounded-lg bg-[#831238] drop-shadow-lg right-0 z-[10] max-w-[320px] text-md md:text-2xl mx-4 md:mr-5 md:mb-5 p-5">
+        Certification Programme in Augmented Reality & Virtual Reality
+        <a href="#form" class="mt-6 text-[#831238] flex-shrink-0 text-center bg-[#fff] hover:bg-[#EEE] active:bg-[#DDD] focus:outline-none focus:ring focus:ring-[#831238] rounded w-full py-2 text-md md:text-lg font-bold text-white" type="submit">
+            Book Now
+        </a>    
+        
+    </div>
     <div class="flex mx-auto flex-col mb-10 justify-between flex h-92 lg:mx-auto sm:px-20 lg:flex-row px-5">
         <div class="container my-5 mx-auto lg:mr-10">
             <div class="max-w-[800px] mx-auto">
@@ -193,7 +203,7 @@
             </label>
             <input class="qualification mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#831238] focus:ring-[#831238] block w-lg rounded-sm focus:ring-1" type="text" name="qualification" required>
 
-            <button class="my-6 flex-shrink-0 bg-[#831238] hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-[#831238] rounded w-full py-2 text-lg font-bold text-white" type="submit">
+            <button class="my-6 flex-shrink-0 bg-[#831238] hover:bg-[#831238] active:bg-[#831238] focus:outline-none focus:ring focus:ring-[#831238] rounded w-full py-2 text-lg font-bold text-white" type="submit">
                 Book Now
             </button> {% if error!=None %}
             <center>
