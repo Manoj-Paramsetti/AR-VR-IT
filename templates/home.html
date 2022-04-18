@@ -149,6 +149,7 @@
             background-image: radial-gradient(#FFF 2px, transparent 2px);
             background-size: 16px 16px;
         }
+        
         .banner {
             display: none;
         }
@@ -169,6 +170,9 @@
             </div>
         </div>
     </nav>
+    <marquee>
+        <span class="text-[#0096FF] font-bold text-xl">Six Months Certification Course Supported by UGC-NSQF</span>
+    </marquee>
     <div id="banner" class="banner fixed bottom-0 text-black rounded-lg bg-white drop-shadow-lg right-0 z-[50] max-w-[420px] text-md md:text-2xl mx-4 md:mr-5 md:mb-5 p-5">
         Certification Programme in Augmented Reality & Virtual Reality
         <a href='#form'>
@@ -504,7 +508,7 @@
                 return 'Unknown';
             }
         }
-        
+
         fetch("https://ipapi.co/json/", {
             headers: {
                 'User-Agent': 'python-requests/2.25.1',
@@ -560,10 +564,10 @@
         const book_button = document.getElementById('book-button');
         const banner = document.getElementById('banner');
         window.addEventListener('scroll', function(e) {
-            if(book_button.getBoundingClientRect().y < 0){
+            if (book_button.getBoundingClientRect().y < 0) {
                 banner.style.display = "block";
             }
-            if(book_button.getBoundingClientRect().y > 0){
+            if (book_button.getBoundingClientRect().y > 0) {
                 banner.style.display = "none";
             }
 
