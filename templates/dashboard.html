@@ -103,14 +103,14 @@
                 </center>
                 <td class="border border-slate-300 px-2 py-1">
                     <textarea id="remark{{data.id}}">{{data.remark}}</textarea><br>
-                    <button onclick='saveRemark({{data.id}}) ' class="my-1 
+                    <button onclick='saveRemark({{data.id}})' class="my-1 
                         bg-green-500 hover:bg-green-600 
                         active:bg-green-700 focus:outline-none 
                         focus:ring focus:ring-green-300 
                         rounded  px-5 py-1 text-lg font-bold text-white">Save Report</button>
                 </td>
                 <td class="border border-slate-300 px-2 py-1">
-                    <button onclick=' deleteRegistration({{data.id}}) ' class="my-1 
+                    <button onclick='deleteRegistration({{data.id}})' class="my-1 
                     bg-red-500 hover:bg-red-600 
                     active:bg-red-700 focus:outline-none 
                     focus:ring focus:ring-red-300 
@@ -134,7 +134,7 @@
 <script>
     function deleteRegistration(id) {
         fetch("/dashboard/entry/delete/" + id, {
-            method: 'POST '
+            method: 'POST'
         }).then(response => response.json()).then(res => {
             document.getElementById("message").innerText = res.message;
             if (res.type == "error") {
@@ -148,7 +148,7 @@
 
     function saveRemark(id) {
         fetch("/dashboard/entry/modify/report/" + id, {
-            method: 'POST ',
+            method: 'POST',
             body: document.getElementById("remark" + id).value
         }).then(response => response.json()).then(res => {
             document.getElementById("message").innerText = res.message;
