@@ -85,7 +85,7 @@
                 <td class="border border-slate-300 px-2 py-1">{{ data.phone }}</td>
                 <td class="border border-slate-300 px-2 py-1">{{ data.city }}</td>
                 <td class="border border-slate-300 px-2 py-1">{{ data.qualification }}</td>
-                <td class="border border-slate-300 px-2 py-1">{{ (data.date).strftime("%d-%m-%Y %H:%M:%S") }}</td>
+                <td class="border border-slate-300 px-2 py-1">{{ (data.date).strftime("%d-%m-%Y %H:%M %p") }}</td>
                 <td class="border border-slate-300 px-2 py-1">
                     <center>
                         {% if data.phoneVerified == True %}

@@ -208,7 +208,7 @@ def export_registrations_as_csv():
     content="ID,Name,Email,Phone,City,Qualification,Date,Remark,WhatsApp Verification Status"
     for data in datas:
         content+="\n"
-        content+="{},{},{},{},{},{},{},{},{}".format(data.id, data.name.replace(',', ''), data.email.replace(",", ''), data.phone, data.city.replace(",", ''), data.qualification.replace(",", ''), data.date.strftime("%d-%m-%Y %H:%M:%S"), data.remark.replace(",", "").replace("\n", '; '), (lambda x: "Verified" if x else "Not Verified")(data.phoneVerified))
+        content+="{},{},{},{},{},{},{},{},{}".format(data.id, data.name.replace(',', ''), data.email.replace(",", ''), data.phone, data.city.replace(",", ''), data.qualification.replace(",", ''), data.date.strftime("%d-%m-%Y %H:%M %p"), data.remark.replace(",", "").replace("\n", '; '), (lambda x: "Verified" if x else "Not Verified")(data.phoneVerified))
     resp=make_response(content, 200)
     resp.mimetype="text/plain"
     return resp
@@ -221,7 +221,7 @@ def export_analytics_as_csv():
     content="ID,IP Address,Last Access,Location,Time Zone,Browser,Operating System,Hit Count"
     for data in datas:
         content+="\n"
-        content+="{},{},{},{},{},{},{},{}".format(data.id, data.ip.replace(',', ''), data.lastAccess.strftime("%d-%m-%Y %H:%M:%S"), data.location.replace(",", ""), data.timezone.replace(",", ''), data.browser.replace(",", ''), data.os.replace(",", ''), data.hitCount)
+        content+="{},{},{},{},{},{},{},{}".format(data.id, data.ip.replace(',', ''), data.lastAccess.strftime("%d-%m-%Y %H:%M %p"), data.location.replace(",", ""), data.timezone.replace(",", ''), data.browser.replace(",", ''), data.os.replace(",", ''), data.hitCount)
     resp=make_response(content, 200)
     resp.mimetype="text/plain"
     return resp
@@ -234,7 +234,7 @@ def export_logs_as_csv():
     content="ID,Log Type,Datetime,Title,Content"
     for data in datas:
         content+="\n"
-        content+="{},{},{},{},{}".format(data.id, data.logtype.replace(',', ''), data.datetime.strftime("%d-%m-%Y %H:%M:%S"), data.title.replace(",", ""), data.content.replace(",", '').replace("\n","; "))
+        content+="{},{},{},{},{}".format(data.id, data.logtype.replace(',', ''), data.datetime.strftime("%d-%m-%Y %H:%M %p"), data.title.replace(",", ""), data.content.replace(",", '').replace("\n","; "))
     resp=make_response(content, 200)
     resp.mimetype="text/plain"
     return resp
