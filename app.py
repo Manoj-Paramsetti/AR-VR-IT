@@ -8,14 +8,12 @@ from datetime import datetime
 import random
 import smokesignal
 import json
+import requests
 
 app = Flask(__name__)
 app.secret_key=urandom(50)
 
 sessions={}
-
-OTP_LENGTH=4
-PHONE_VERIFICATION_TRAILS=3
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///registeredStudents.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -33,7 +31,6 @@ class Register(db.Model):
     qualification=db.Column(db.String, nullable=False)
     date=db.Column(db.DateTime, default=datetime.now)
     remark=db.Column(db.String, nullable=False, default="")
-    phoneVerified=db.Column(db.Boolean, nullable=False, default=False)
 
 class User(db.Model):
     __tablename__="users"
@@ -53,15 +50,6 @@ class PageHit(db.Model):
     browser=db.Column(db.String, nullable=False)
     os=db.Column(db.String, nullable=False)
     hitCount=db.Column(db.Integer, nullable=False)
-
-class Log(db.Model):
-    __tablename__="logs"
-
-    id=db.Column(db.Integer, primary_key=True)
-    logtype=db.Column(db.String, nullable=False)
-    datetime=db.Column(db.DateTime, default=datetime.now)
-    title=db.Column(db.String, nullable=False)
-    content=db.Column(db.String, nullable=False)
 
 def newSession(user):
     global sessions
@@ -95,10 +83,7 @@ def register():
                 try:
                     db.session.add(new_student)
                     db.session.commit()
-                    session['registrationId']=new_student.id
-                    session['phoneNum']=phone
-                    session['phoneVerificationTrials']=0
-                    return redirect('/whatsappVerification')
+                    return redirect('/registered')
                 except Exception as err:
                     smokesignal.emit('log', 'ERROR', 'Exception on registration', "Message: {}\nContext: Registration ID: {}".format(str(err), new_student.id))
                     return redirect('/error/{}'.format(str(err)))
@@ -138,37 +123,6 @@ def addNewHit():
     except Exception as err:
         smokesignal.emit('log','ERROR', 'Could not log page hit.', 'Error: {}\nContext: IP: {}, Browser: {}, OS: {}'.format(str(err), ip, browser, os))
         return {"message": "Could not register hit.", "type": "error"}
-
-@app.route("/whatsappVerification", methods=["GET", "POST"])
-def whatsappVerification():
-    def generateOTP():
-        otp=""
-        for x in range(OTP_LENGTH):
-            otp+=str(random.randint(0,9))
-        return otp
-    if session.get('phoneNum')==None:
-        return redirect('/')
-    if request.method=="POST":
-        if session.get("verificationCode")==None:
-            return redirect('/')
-        if session['phoneVerificationTrails']>=PHONE_VERIFICATION_TRAILS:
-            session.clear()
-            return redirect('/error/Phone%20number%20verification%20failed.%20All%20trails%20used!')
-        verificationCode=str(request.form['verificationCode'])
-        if verificationCode==session['verificationCode'].strip():
-            registration=Register.query.get(session['registrationId'])
-            registration.phoneVerified=True
-            db.session.commit()
-            session.clear()
-            return redirect('/registered')
-        else:
-            session['phoneVerificationTrails']+=1
-            return render_template('whatsappVerification.html', phoneNum=session['phoneNum'], trys=session['phoneVerificationTrails'], totalTrails=PHONE_VERIFICATION_TRAILS)
-    if session.get('verificationCode')==None:
-        session['verificationCode']=generateOTP()
-        whatsappInteraction.queue.append((session['phoneNum'], session['verificationCode']))
-        session['phoneVerificationTrails']=1
-    return render_template('whatsappVerification.html', phoneNum=session['phoneNum'], trys=session['phoneVerificationTrails'], totalTrails=PHONE_VERIFICATION_TRAILS)
 
 @app.route('/dashboard/login', methods=["GET", "POST"])
 def dashboard_login():
@@ -222,19 +176,6 @@ def export_analytics_as_csv():
     for data in datas:
         content+="\n"
         content+="{},{},{},{},{},{},{},{}".format(data.id, data.ip.replace(',', ''), data.lastAccess.strftime("%d-%m-%Y %H:%M %p"), data.location.replace(",", ""), data.timezone.replace(",", ''), data.browser.replace(",", ''), data.os.replace(",", ''), data.hitCount)
-    resp=make_response(content, 200)
-    resp.mimetype="text/plain"
-    return resp
-
-@app.route('/dashboard/export/csv/logs')
-def export_logs_as_csv():
-    if session.get("appsecret") not in sessions:
-        return redirect('/dashboard/login')
-    datas=Log.query.order_by(Log.datetime)
-    content="ID,Log Type,Datetime,Title,Content"
-    for data in datas:
-        content+="\n"
-        content+="{},{},{},{},{}".format(data.id, data.logtype.replace(',', ''), data.datetime.strftime("%d-%m-%Y %H:%M %p"), data.title.replace(",", ""), data.content.replace(",", '').replace("\n","; "))
     resp=make_response(content, 200)
     resp.mimetype="text/plain"
     return resp
@@ -297,14 +238,6 @@ def dashboard_modify_report(id: int):
         smokesignal.emit('log','ERROR', 'Could not update Remark', 'Error: {}\nContext: Registration ID: {}'.format(str(err), id))
         return {"message": str(err), "type": "error"}
 
-@app.route('/dashboard/logs')
-def showLogs():
-    if session.get("appsecret") not in sessions:
-        return redirect('/dashboard/login')
-    datas=Log.query.group_by(Log.datetime)
-    datas=datas[::-1]
-    return render_template('logs.html', datas=datas)
-
 @app.route('/dashboard/analytics')
 def analytics():
     if session.get("appsecret") not in sessions:
@@ -338,17 +271,15 @@ def error(message: str):
 # Logging
 
 @smokesignal.on('log')
-def logToDatabase(type_, title, content):
-    logItem=Log(logtype=type_, title=title, content=content)
+def log(type_, title, content):
+    url="https://discord.com/api/webhooks/967286000374124615/04jcYyQIOQH7JFuCwEol04EwRvK5ZCL9v2pFIkReQPsc4bGNLIqOXOPiayhyCAGhkl7b"
+    data={"content": "", "embeds": [{"title": title, "fields": [{"name": "At", "value": datetime.now().strftime("%d-%m-%Y %H:%M %p")}], "description": str(content)}]}
     try:
-        db.session.add(logItem)
-        db.session.commit()
+        requests.post(url, json=data)
     except Exception as err:
         print(err)
 
 # Logging Ends
-
-import whatsappInteraction
 
 if __name__=="__main__":
     smokesignal.emit('log','INFO', 'Server Started', '')
