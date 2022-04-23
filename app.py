@@ -1,4 +1,4 @@
-from os import urandom
+from os import urandom, getenv
 from flask import Flask, render_template, request, redirect, session, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
@@ -15,7 +15,11 @@ app.secret_key=urandom(50)
 
 sessions={}
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///registeredStudents.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///registeredStudents.db"
+uri=getenv("DATABASE_URL")
+if uri.startswith("postgres://"):
+    uri=uri.replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI']=uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
