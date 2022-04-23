@@ -195,7 +195,7 @@
                 Institute of Science and Technology (School of Computing, Department of IT) in collaboration with Scopik EduTech Pvt. Ltd
             </h2>
         </div>
-        <form id="form" class="flex-shrink-0 h-min sticky top-16 sm:w-[420px] md:w-[520px] lg:w-[400px] my-10 w-full mx-auto lg:mx-0 px-5 bg-white rounded-lg drop-shadow-2xl" method="POST" action="#">
+        <form id="form" class="flex-shrink-0 h-min sticky top-16 sm:w-[420px] md:w-[520px] lg:w-[400px] my-10 w-full mx-auto lg:mx-0 px-5 bg-white rounded-lg drop-shadow-2xl" method="POST" action="/POSTACTIONURL">
             <p class="text-3xl mt-10 text-[#831238] font-bold text-center">Book a Session</p>
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 Name
@@ -205,29 +205,25 @@
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 Email
             </label>
-            <input class="email mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#831238] focus:ring-[#831238] block w-lg rounded-sm focus:ring-1" type="email" name="email" required>
+            <input class="email mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#831238] focus:ring-[#831238] block w-lg rounded-sm focus:ring-1" type="email" name="email" id="email" required>
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 Whatsapp Number
             </label>
-            <input class="phone mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#831238] focus:ring-[#831238] block w-lg rounded-sm focus:ring-1" type="number" name="phone" min="1000000000"
+            <input class="phone mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#831238] focus:ring-[#831238] block w-lg rounded-sm focus:ring-1" type="number" name="phone" id="phonenum" min="1000000000"
                 max="9999999999" required>
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 City
             </label>
-            <input class="city mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#831238] focus:ring-[#831238] block w-lg rounded-sm focus:ring-1" type="text" name="city" required>
+            <input class="city mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#831238] focus:ring-[#831238] block w-lg rounded-sm focus:ring-1" type="text" name="city" id="city" required>
             <label class="after:content-['*'] after:ml-0.4 after:text-red-500 block text-lg mt-5 font-medium text-slate-700">
                 Qualification
             </label>
-            <input class="qualification mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#831238] focus:ring-[#831238] block w-lg rounded-sm focus:ring-1" type="text" name="qualification" required>
+            <input class="qualification mt-1 py-1 text-lg w-full bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#831238] focus:ring-[#831238] block w-lg rounded-sm focus:ring-1" type="text" name="qualification" id="qualification"
+                required>
 
             <button id="book-button" class="my-6 flex-shrink-0 bg-[#831238] hover:bg-[#831238] active:bg-[#831238] focus:outline-none focus:ring focus:ring-[#831238] rounded w-full py-2 text-lg font-bold text-white" type="submit">
                 Book Now
-            </button> {% if error!=None %}
-            <center>
-                <div style="color: red;">{{error}}</div>
-                <br>
-            </center>
-            {% endif %}
+            </button>
         </form>
     </div>
     <div class="flex flex-col my-2 w-full lg:flex-row h-92 bg-[#831238] poppins font-medium">
@@ -491,121 +487,7 @@
     <br>
     <br>
     <br>
-
-    <script>
-        function detectBrowser() {
-            if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
-                return 'Opera';
-            } else if (navigator.userAgent.indexOf("Chrome") != -1) {
-                return 'Chrome';
-            } else if (navigator.userAgent.indexOf("Safari") != -1) {
-                return 'Safari';
-            } else if (navigator.userAgent.indexOf("Firefox") != -1) {
-                return 'Firefox';
-            } else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) {
-                return 'IE';
-            } else {
-                return 'Unknown';
-            }
-        }
-
-        fetch("https://ipapi.co/json/", {
-            headers: {
-                'User-Agent': 'python-requests/2.25.1',
-                'Accept-Encoding': 'gzip, deflate',
-                'Accept': '*/*',
-                'Connection': 'keep-alive'
-            }
-        }).then(response => response.json()).then(data => {
-            fetch("/addNewHit", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ip: data.ip,
-                    location: data.region + ", " + data.country_name,
-                    timezone: data.timezone,
-                    browser: detectBrowser(),
-                    os: window.navigator.platform
-                })
-            })
-        }).catch(
-            (error) => {
-                fetch("https://api.ipify.org/?format=json").then(response => response.json()).then(data => {
-                    fetch("/addNewHit", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            ip: data.ip,
-                            location: "Unknown",
-                            timezone: "Unknown",
-                            browser: detectBrowser(),
-                            os: window.navigator.platform
-                        })
-                    })
-                })
-            })
-    </script>
-
-    <script>
-        let slideIndex = 0;
-        var timeouts = [];
-        showSlides();
-
-        function stopExistingSlideshow() {
-            timeouts.forEach((timeout) => {
-                clearTimeout(timeout)
-            });
-            timeouts = [];
-        }
-        const book_button = document.getElementById('book-button');
-        const banner = document.getElementById('banner');
-        window.addEventListener('scroll', function(e) {
-            if (book_button.getBoundingClientRect().y < 0) {
-                banner.style.display = "block";
-            }
-            if (book_button.getBoundingClientRect().y > 0) {
-                banner.style.display = "none";
-            }
-
-        });
-
-        function showSlides() {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
-            let dots = document.getElementsByClassName("dot");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {
-                slideIndex = 1
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-            timeouts.push(setTimeout(showSlides, 3000));
-        }
-        /*
-        var coll = document.getElementsByClassName("collapsible");
-        var i;
-
-        for (i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function() {
-                var content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                } else {
-                    content.style.display = "block";
-                }
-            });
-        }
-        */
+    <script src="/static/scripts/main.js">
     </script>
 
 
