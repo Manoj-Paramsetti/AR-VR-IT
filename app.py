@@ -9,6 +9,7 @@ import random
 import smokesignal
 import json
 import requests
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 app.secret_key=urandom(50)
@@ -27,10 +28,10 @@ db = SQLAlchemy(app)
 class Register(db.Model):
     __tablename__="registers"
 
-    id=db.Column(db.Integer, primary_key=True)
+    id=db.Column(db.Integer, primary_key=True, autoincrement=True)
     name=db.Column(db.String, nullable=False)
     email=db.Column(db.String, nullable=False, unique=True)
-    phone=db.Column(db.Integer, nullable=False)
+    phone=db.Column(db.String, nullable=False)
     city=db.Column(db.String, nullable=False)
     qualification=db.Column(db.String, nullable=False)
     date=db.Column(db.DateTime, default=datetime.now)
@@ -39,14 +40,14 @@ class Register(db.Model):
 class User(db.Model):
     __tablename__="users"
 
-    id=db.Column(db.Integer, primary_key=True)
+    id=db.Column(db.Integer, primary_key=True, autoincrement=True)
     username=db.Column(db.String, nullable=False, unique=True)
     password_hash=db.Column(db.String, nullable=False)
 
 class PageHit(db.Model):
     __tablename__="pagehits"
 
-    id=db.Column(db.Integer, primary_key=True)
+    id=db.Column(db.Integer, primary_key=True, autoincrement=True)
     ip=db.Column(db.String, nullable=False)
     lastAccess=db.Column(db.DateTime, default=datetime.now)
     location=db.Column(db.String, nullable=False)
@@ -138,6 +139,7 @@ def dashboard_login():
         except:
             return render_template("dash_login.html", error="Invalid Username")
         if user.password_hash==sha1(passwd.encode()).hexdigest():
+            print("password matches")
             session['user']=user.username
             session['userid']=user.id
             session['appsecret']=newSession(user)
@@ -145,14 +147,14 @@ def dashboard_login():
         else:
             return render_template("dash_login.html", error="Invalid Credentials")
     else:
-        if session.get("appsecret")!=app.secret_key:
-            return render_template('dash_login.html', error=None)
-        else:
+        if session.get("appsecret") in session.keys():
             return redirect('/dashboard')
+        return render_template('dash_login.html')
 
 @app.route('/dashboard')
 def dashboard():
-    if session.get("appsecret") not in sessions:
+    global sessions
+    if session.get("appsecret") not in sessions.keys():
         return redirect('/dashboard/login')
     datas=Register.query.order_by(Register.date)
     hitcount=PageHit.query.with_entities(func.sum(PageHit.hitCount).label('total')).first().total
@@ -160,33 +162,33 @@ def dashboard():
 
 @app.route('/dashboard/export/csv/registrations')
 def export_registrations_as_csv():
-    if session.get("appsecret") not in sessions:
+    if session.get("appsecret") not in sessions.keys():
         return redirect('/dashboard/login')
     datas=Register.query.order_by(Register.date)
-    content="ID,Name,Email,Phone,City,Qualification,Date,Remark,WhatsApp Verification Status"
+    content="ID,Name,Email,Phone,City,Qualification,Date,Remark"
     for data in datas:
         content+="\n"
-        content+="{},{},{},{},{},{},{},{},{}".format(data.id, data.name.replace(',', ''), data.email.replace(",", ''), data.phone, data.city.replace(",", ''), data.qualification.replace(",", ''), data.date.strftime("%d-%m-%Y %H:%M %p"), data.remark.replace(",", "").replace("\n", '; '), (lambda x: "Verified" if x else "Not Verified")(data.phoneVerified))
+        content+="{},{},{},{},{},{},{},{}".format(data.id, data.name.replace(',', ''), data.email.replace(",", ''), data.phone, data.city.replace(",", ''), data.qualification.replace(",", ''), data.date.strftime("%d-%m-%Y %I:%M %p"), data.remark.replace(",", "").replace("\n", '; '))
     resp=make_response(content, 200)
     resp.mimetype="text/plain"
     return resp
 
 @app.route('/dashboard/export/csv/analytics')
 def export_analytics_as_csv():
-    if session.get("appsecret") not in sessions:
+    if session.get("appsecret") not in sessions.keys():
         return redirect('/dashboard/login')
     datas=PageHit.query.order_by(PageHit.lastAccess)
     content="ID,IP Address,Last Access,Location,Time Zone,Browser,Operating System,Hit Count"
     for data in datas:
         content+="\n"
-        content+="{},{},{},{},{},{},{},{}".format(data.id, data.ip.replace(',', ''), data.lastAccess.strftime("%d-%m-%Y %H:%M %p"), data.location.replace(",", ""), data.timezone.replace(",", ''), data.browser.replace(",", ''), data.os.replace(",", ''), data.hitCount)
+        content+="{},{},{},{},{},{},{},{}".format(data.id, data.ip.replace(',', ''), data.lastAccess.strftime("%d-%m-%Y %I:%M %p"), data.location.replace(",", ""), data.timezone.replace(",", ''), data.browser.replace(",", ''), data.os.replace(",", ''), data.hitCount)
     resp=make_response(content, 200)
     resp.mimetype="text/plain"
     return resp
 
 @app.route("/dashboard/users/new", methods=['POST', 'GET'])
 def dashboard_new_user():
-    if session.get("appsecret") not in sessions:
+    if session.get("appsecret") not in sessions.keys():
         return redirect('/dashboard/login')
     if request.method=='POST':
         username=request.form['username']
@@ -211,14 +213,14 @@ def dashboard_new_user():
 
 @app.route('/dashboard/users')
 def dashboard_view_all_users():
-    if session.get("appsecret") not in sessions:
+    if session.get("appsecret") not in sessions.keys():
         return redirect('/dashboard/login')
     users=User.query.order_by(User.id)
     return render_template("allusers.html", users=users)
 
 @app.route("/dashboard/entry/delete/<id>", methods=["POST"])
 def dashboard_delete_entry(id: int):
-    if session.get("appsecret") not in sessions:
+    if session.get("appsecret") not in sessions.keys():
         return redirect('/dashboard/login')
     entry=Register.query.get(id)
     if entry==None:
@@ -230,7 +232,7 @@ def dashboard_delete_entry(id: int):
 
 @app.route("/dashboard/entry/modify/report/<id>", methods=['POST'])
 def dashboard_modify_report(id: int):
-    if session.get("appsecret") not in sessions:
+    if session.get("appsecret") not in sessions.keys():
         return redirect('/dashboard/login')
     remark=request.get_data().decode()
     try:
@@ -244,9 +246,9 @@ def dashboard_modify_report(id: int):
 
 @app.route('/dashboard/analytics')
 def analytics():
-    if session.get("appsecret") not in sessions:
+    if session.get("appsecret") not in sessions.keys():
         return redirect("/dashboard/login")
-    datas=PageHit.query.group_by(PageHit.lastAccess)
+    datas=PageHit.query.order_by(PageHit.lastAccess)
     datas=datas[::-1]
     return render_template('analytics.html', datas=datas)
 
@@ -274,10 +276,24 @@ def error(message: str):
 
 # Logging
 
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    response = e.get_response()
+    response.data = json.dumps({
+        "error": {
+            "code": e.code,
+            "name": e.name,
+            "description": e.description,
+        }
+    })
+    smokesignal.emit("log", "ERROR", "{} - {}".format(e.name, e.code), 'Context: {}\nRequest Method: {}\nFull Request: {}\nRequest Scheme: {}\nSession Vars: {}'.format(e.description, request.method, request.full_path, request.scheme, session.items()))
+    response.content_type = "application/json"
+    return response
+
 @smokesignal.on('log')
 def log(type_, title, content):
-    url="https://discord.com/api/webhooks/967286000374124615/04jcYyQIOQH7JFuCwEol04EwRvK5ZCL9v2pFIkReQPsc4bGNLIqOXOPiayhyCAGhkl7b"
-    data={"content": "", "embeds": [{"title": title, "fields": [{"name": "At", "value": datetime.now().strftime("%d-%m-%Y %H:%M %p")}], "description": str(content)}]}
+    url="https://discord.com/api/webhooks/967342526560370708/auw-zQPfGjiWRh9xFpQELyqTLCvbDloKZNJ-ixxHqblZY3cZ6CD8PWWcH1GV1rtwrqOI"
+    data={"content": "", "embeds": [{"title": "{} | {}".format(type_.lower().title(), title), "fields": [{"name": "At", "value": datetime.now().strftime("%d-%m-%Y %I:%M %p")}], "description": str(content)}]}
     try:
         requests.post(url, json=data)
     except Exception as err:
@@ -287,7 +303,7 @@ def log(type_, title, content):
 
 if __name__=="__main__":
     smokesignal.emit('log','INFO', 'Server Started', '')
-    app.run(debug=True)
+    app.run(debug=False, port=int(getenv('PORT', 5000)), host="0.0.0.0")
 
 # https://executive-ed.xpro.mit.edu/virtual-reality-augmented-reality
 # https://xrcourse.com/syr/courses/xr-development-with-unity
